@@ -11,7 +11,8 @@ prolog.consult("reglas_test.pl")
 def create_window():
     window = Tk()
     window.title("El presupuesto del bibliófilo")
-    window.geometry("1366x768")
+    window.geometry("720x480")
+
     #Label 1
     lbl = Label(window, text="Seleccione accion.", font=("Arial Bold", 15))
     lbl.grid(column=1, row=0)
@@ -22,7 +23,8 @@ def create_window():
     combo = Combobox(window, state="readonly")
     combo['values'] = ("Select", "libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro)"
                        ,"categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro)"
-                       ,"usados_varias_categorias(Adicional,IdLibro)")
+                       ,"usados_varias_categorias(Adicional,IdLibro)"
+                       ,"categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro)")
     combo.current(0)
     combo.grid(column=1,row=2)
     combo.bind('<<ComboboxSelected>>', lambda event: on_value_change(combo, window))
@@ -73,6 +75,28 @@ def clicked2nd(adicional, porciento_sueldo, categoria, estrellas, id_libro, wind
     for result in selected_option:
         for key in result.keys():
             txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+
+
+def clicked3rd(porciento_sueldo, categoria, autor, palabra, id_libro, window):
+    fact = "categoria_autor_nopalabra(" \
+            + porciento_sueldo.get() + \
+            "," + categoria.get() + \
+            "," + autor.get() + \
+            "," + palabra.get() + \
+            "," + id_libro.get() + \
+            ")"
+
+
+    print(fact)
+    selected_option = list(prolog.query(fact))
+
+    txt = scrolledtext.ScrolledText(window, width=40, height=10)
+    txt.grid(column=1, row=15)
+    for result in selected_option:
+        for key in result.keys():
+            txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+
+
 def on_value_change(combo,window):
     print(combo.get())
 
@@ -150,7 +174,38 @@ def on_value_change(combo,window):
         id_libro = Entry(window)
         id_libro.grid(column=1, row=5)
 
+    if(combo.get() == "categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro)"):
+        cleanWindow(window)
 
+        label_porciento_sueldo = Label(window, text="Porciento Sueldo", anchor='e', width=30)
+        label_porciento_sueldo.grid(column=0, row=3, pady=10)
+        porciento_sueldo = Entry(window)
+        porciento_sueldo.grid(column=1, row=3)
+
+#TITULO/NOMBRE AUTOR/PRECIO FOR THE LISTING OF BOOKS
+        label_categoria = Label(window, text="Categoria", anchor='e', width=30)
+        label_categoria.grid(column=0, row=5, pady=10)
+        categoria = Entry(window)
+        categoria.grid(column=1, row=5)
+
+        label_autor = Label(window, text="Autor", anchor='e', width=30)
+        label_autor.grid(column=0, row=7, pady=10)
+        autor = Entry(window)
+        autor.grid(column=1, row=7)
+
+        label_palabra = Label(window, text="Palabra", anchor='e', width=30)
+        label_palabra.grid(column=0, row=9, pady=10)
+        palabra = Entry(window)
+        palabra.grid(column=1, row=9)
+
+        label_id_libro = Label(window, text="Id Libro", anchor='e', width=30)
+        label_id_libro.grid(column=0, row=11, pady=10)
+        id_libro = Entry(window)
+        id_libro.grid(column=1, row=11)
+
+        btn = Button(window, text="Buscar",
+                     command=lambda: clicked3rd(porciento_sueldo, categoria, autor, palabra, id_libro, window))
+        btn.grid(column=1, row=13)
 def cleanWindow(window):
     for widget in window.grid_slaves():
         if (int(widget.grid_info()['row'] > 2)):
