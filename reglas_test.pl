@@ -201,10 +201,10 @@ economia_edwardconen_nocrisis(Adicional,Porciento,Autor,Categoria,Palabra,ID):-
     not(member(Palabra,Lista)).
 
 %%%%% Q U I N T A  R E G L A
-viaje_cinco_estrellas(Categoria, Mes, Ano, Estrellas, IdLibro):-
+quinta(Categoria, Mes, Ano, Estrellas, IdLibro):-
     libro(IdLibro,_),
     categoria(IdLibro,Categoria),
     fecha(IdLibro,_,ML,AL),
     ML == Mes,AL == Ano,
     ranking(IdLibro,E),
-    E>=Estrellas.
+    E=:=Estrellas.
