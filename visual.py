@@ -20,9 +20,9 @@ def create_window():
     # v.trace('w', on_value_change)
     #Cbx
     combo = Combobox(window, state="readonly")
-    combo['values'] = ("Select", "obtener_libros_menosde_siete_dias(Adicional,PorcientoSueldo,Dia,Mes,Anho,IdLibro)"
-                       ,"obtener_cienciaficcion_historia(Adicional, PorcientoSueldo, Categoria,Estrellas,IdLibro)"
-                       ,"obtener_usados_varias_categorias(Adicional,Porciento,IdLibro)")
+    combo['values'] = ("Select", "libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro)"
+                       ,"categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro)"
+                       ,"usados_varias_categorias(Adicional,IdLibro)")
     combo.current(0)
     combo.grid(column=1,row=2)
     combo.bind('<<ComboboxSelected>>', lambda event: on_value_change(combo, window))
@@ -37,38 +37,77 @@ def create_window():
     window.mainloop()
 
 
+def clicked1st(adicional, dia, mes, anho, id_libro, window):
+        fact = "libros_menosde_siete_dias("\
+            +adicional.get()+\
+               ","+dia.get()+\
+               ","+mes.get()+\
+               ","+anho.get()+\
+               ","+id_libro.get()+\
+               ")"
+
+        print(fact)
+        selected_option = list(prolog.query(fact))
+
+        txt = scrolledtext.ScrolledText(window, width=40, height=10)
+        txt.grid(column=1, row=15)
+        for result in selected_option:
+            for key in result.keys():
+                txt.insert(INSERT,(key + ' : ' + str(result[key]) + "\n"))
+
+
+def clicked2nd(adicional, porciento_sueldo, categoria, estrellas, id_libro, window):
+    fact = "categoria_estrellas(" \
+           + adicional.get() + \
+            "," + porciento_sueldo.get() + \
+            "," + categoria.get() + \
+            "," + estrellas.get() + \
+            "," + id_libro.get() + \
+            ")"
+
+    print(fact)
+    selected_option = list(prolog.query(fact))
+
+    txt = scrolledtext.ScrolledText(window, width=40, height=10)
+    txt.grid(column=1, row=15)
+    for result in selected_option:
+        for key in result.keys():
+            txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
 def on_value_change(combo,window):
     print(combo.get())
 
 
-    if(combo.get() == "obtener_libros_menosde_siete_dias(Adicional,PorcientoSueldo,Dia,Mes,Anho,IdLibro)"):
+    if(combo.get() == "libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro)"):
         cleanWindow(window)
         label_adicional = Label(window, text="Sueldo Adicional", anchor='e', width=30)
         label_adicional.grid(column=0,row=3,pady=10 )
         adicional = Entry(window)
         adicional.grid(column=1,row=3)
-        label_porciento_sueldo = Label(window, text="Porciento Sueldo", anchor='e', width=30)
-        label_porciento_sueldo.grid(column=0, row=5,pady=10)
-        porciento_sueldo = Entry(window)
-        porciento_sueldo.grid(column=1, row=5)
-        label_dia = Label(window, text="Dia", anchor='e', width=30)
-        label_dia.grid(column=0, row=7,pady=10)
-        dia = Entry(window)
-        dia.grid(column=1, row=7)
-        label_mes = Label(window, text="Mes", anchor='e', width=30)
-        label_mes.grid(column=0, row=9,pady=10)
-        mes = Entry(window)
-        mes.grid(column=1, row=9)
-        label_anho = Label(window, text="Año", anchor='e', width=30)
-        label_anho.grid(column=0, row=11,pady=10)
-        anho = Entry(window)
-        anho.grid(column=1, row=11)
-        label_id_libro = Label(window, text="Id Libro", anchor='e', width=30)
-        label_id_libro.grid(column=0, row=13,pady=10)
-        id_libro = Entry(window)
-        id_libro.grid(column=1, row=13)
 
-    if(combo.get() == "obtener_cienciaficcion_historia(Adicional, PorcientoSueldo, Categoria,Estrellas,IdLibro)"):
+        label_dia = Label(window, text="Dia", anchor='e', width=30)
+        label_dia.grid(column=0, row=5,pady=10)
+        dia = Entry(window)
+        dia.grid(column=1, row=5)
+
+        label_mes = Label(window, text="Mes", anchor='e', width=30)
+        label_mes.grid(column=0, row=7,pady=10)
+        mes = Entry(window)
+        mes.grid(column=1, row=7)
+
+        label_anho = Label(window, text="Año", anchor='e', width=30)
+        label_anho.grid(column=0, row=9,pady=10)
+        anho = Entry(window)
+        anho.grid(column=1, row=9)
+
+        label_id_libro = Label(window, text="Id Libro", anchor='e', width=30)
+        label_id_libro.grid(column=0, row=11,pady=10)
+        id_libro = Entry(window)
+        id_libro.grid(column=1, row=11)
+
+        btn = Button(window, text="Buscar", command= lambda: clicked1st(adicional,dia,mes,anho,id_libro, window))
+        btn.grid(column=1,row=13)
+
+    if(combo.get() == "categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro)"):
         cleanWindow(window)
 
         label_adicional = Label(window, text="Sueldo Adicional", anchor='e', width=30)
@@ -96,7 +135,9 @@ def on_value_change(combo,window):
         id_libro = Entry(window)
         id_libro.grid(column=1, row=11)
 
-    if(combo.get() == "obtener_usados_varias_categorias(Adicional,Porciento,IdLibro)"):
+        btn = Button(window, text="Buscar", command=lambda: clicked2nd(adicional, porciento_sueldo, categoria, estrellas, id_libro, window))
+        btn.grid(column=1, row=13)
+    if(combo.get() == "usados_varias_categorias(Adicional,IdLibro)"):
         cleanWindow(window)
 
         label_adicional = Label(window, text="Sueldo Adicional", anchor='e', width=30)
@@ -104,15 +145,10 @@ def on_value_change(combo,window):
         adicional = Entry(window)
         adicional.grid(column=1, row=3)
 
-        label_porciento_sueldo = Label(window, text="Porciento Sueldo", anchor='e', width=30)
-        label_porciento_sueldo.grid(column=0, row=5, pady=10)
-        porciento_sueldo = Entry(window)
-        porciento_sueldo.grid(column=1, row=5)
-
         label_id_libro = Label(window, text="Id Libro", anchor='e', width=30)
-        label_id_libro.grid(column=0, row=7, pady=10)
+        label_id_libro.grid(column=0, row=5, pady=10)
         id_libro = Entry(window)
-        id_libro.grid(column=1, row=7)
+        id_libro.grid(column=1, row=5)
 
 
 def cleanWindow(window):
@@ -121,7 +157,7 @@ def cleanWindow(window):
             widget.grid_forget()
 
 def main():
-
+    print("Initiated")
     create_window()
 
 
