@@ -40,7 +40,9 @@ def create_window():
 def on_value_change(combo,window):
     print(combo.get())
 
+
     if(combo.get() == "obtener_libros_menosde_siete_dias(Adicional,PorcientoSueldo,Dia,Mes,Anho,IdLibro)"):
+        cleanWindow(window)
         label_adicional = Label(window, text="Sueldo Adicional", anchor='e', width=30)
         label_adicional.grid(column=0,row=3,pady=10 )
         adicional = Entry(window)
@@ -61,30 +63,62 @@ def on_value_change(combo,window):
         label_anho.grid(column=0, row=11,pady=10)
         anho = Entry(window)
         anho.grid(column=1, row=11)
-        label_id_libro = Label(window, text="Sueldo Adicional", anchor='e', width=30)
+        label_id_libro = Label(window, text="Id Libro", anchor='e', width=30)
         label_id_libro.grid(column=0, row=13,pady=10)
         id_libro = Entry(window)
         id_libro.grid(column=1, row=13)
 
     if(combo.get() == "obtener_cienciaficcion_historia(Adicional, PorcientoSueldo, Categoria,Estrellas,IdLibro)"):
-        for widget in window.grid_slaves():
-            if( int(widget.grid_info()['row'] > 2)):
-                widget.grid_forget()
-def clicked(option, txt):
-    if not option == 'Select':
-        selected_option = list(prolog.query(option))
-        txt.delete(1.0,END)
-        print(selected_option)
-        for result in selected_option:
-            for key in result.keys():
-                txt.insert(INSERT,(key + ' : ' + str(result[key]) + "\n"))
-    else:
-        txt.delete(1.0,END)
+        cleanWindow(window)
+
+        label_adicional = Label(window, text="Sueldo Adicional", anchor='e', width=30)
+        label_adicional.grid(column=0, row=3, pady=10)
+        adicional = Entry(window)
+        adicional.grid(column=1, row=3)
+
+        label_porciento_sueldo = Label(window, text="Porciento Sueldo", anchor='e', width=30)
+        label_porciento_sueldo.grid(column=0, row=5, pady=10)
+        porciento_sueldo = Entry(window)
+        porciento_sueldo.grid(column=1, row=5)
+
+        label_categoria = Label(window, text="Categoria", anchor='e', width=30)
+        label_categoria.grid(column=0, row=7, pady=10)
+        categoria = Entry(window)
+        categoria.grid(column=1, row=7)
+
+        label_estrellas = Label(window, text="Estrellas", anchor='e', width=30)
+        label_estrellas.grid(column=0, row=9, pady=10)
+        estrellas = Entry(window)
+        estrellas.grid(column=1, row=9)
+
+        label_id_libro = Label(window, text="Id_libro", anchor='e', width=30)
+        label_id_libro.grid(column=0, row=11, pady=10)
+        id_libro = Entry(window)
+        id_libro.grid(column=1, row=11)
+
+    if(combo.get() == "obtener_usados_varias_categorias(Adicional,Porciento,IdLibro)"):
+        cleanWindow(window)
+
+        label_adicional = Label(window, text="Sueldo Adicional", anchor='e', width=30)
+        label_adicional.grid(column=0, row=3, pady=10)
+        adicional = Entry(window)
+        adicional.grid(column=1, row=3)
+
+        label_porciento_sueldo = Label(window, text="Porciento Sueldo", anchor='e', width=30)
+        label_porciento_sueldo.grid(column=0, row=5, pady=10)
+        porciento_sueldo = Entry(window)
+        porciento_sueldo.grid(column=1, row=5)
+
+        label_id_libro = Label(window, text="Id Libro", anchor='e', width=30)
+        label_id_libro.grid(column=0, row=7, pady=10)
+        id_libro = Entry(window)
+        id_libro.grid(column=1, row=7)
 
 
-def assertar(text):
-    prolog.assertz(text.get())
-    text.delete(0, END)
+def cleanWindow(window):
+    for widget in window.grid_slaves():
+        if (int(widget.grid_info()['row'] > 2)):
+            widget.grid_forget()
 
 def main():
 
