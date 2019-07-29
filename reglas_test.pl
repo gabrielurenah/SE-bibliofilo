@@ -134,14 +134,14 @@ obtener_presupuesto(Adicional,Total):-
     sueldo(S),
     Total is Adicional+S.
 
-obtener_presupuesto(Porcentaje,Adicional,Total):- 
+obtener_presupuesto(Adicional,Porcentaje,Total):- 
     obtener_porciento(Porcentaje,Resultado),
     Total is Adicional+Resultado.
 
 obtener_porciento(Porcentaje,Resultado):-sueldo(Sueldo),Resultado is Sueldo*Porcentaje.
 
 %%%%% P R I M E R A   R E G L A
-ibros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
+libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
     obtener_presupuesto(Adicional, Presupuesto),
     libro(IdLibro,_),
     fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
@@ -159,36 +159,19 @@ libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
     Precio =< Presupuesto.
 
 %%%%% S E G U N D A  R E G L A
-cienciaficcion_historia(IdLibro):-
-    obtener_presupuesto(0.1, 3500, Presupuesto),
-    categoria(IdLibro,'Ciencia Ficcion'),
-    ranking(IdLibro,Estrellas),
-    Estrellas>=4,
+categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro):-
+    obtener_presupuesto(Adicoinal, Porcentaje, Presupuesto),
+    categoria(IdLibro,Categoria),
+    ranking(IdLibro,E),
+    E>=Estrellas,
     usado(IdLibro,Precio),
     Precio =< Presupuesto.
 
-cienciaficcion_historia(IdLibro):-
-    obtener_presupuesto(0.1, 3500, Presupuesto),
-    categoria(IdLibro,'Ciencia Ficcion'),
-    ranking(IdLibro,Estrellas),
-    Estrellas>=4,
-    not(usado(IdLibro,_)),
-    nuevo(IdLibro,Precio),
-    Precio =< Presupuesto.
-
-cienciaficcion_historia(IdLibro):-
-    obtener_presupuesto(0.1, 3500, Presupuesto),
-    categoria(IdLibro,'Historia'),
-    ranking(IdLibro,Estrellas),
-    Estrellas>=4,
-    usado(IdLibro,Precio),
-    Precio =< Presupuesto.
-
-cienciaficcion_historia(IdLibro):-
-    obtener_presupuesto(0.1, 3500, Presupuesto),
-    categoria(IdLibro,'Historia'),
-    ranking(IdLibro,Estrellas),
-    Estrellas>=4,
+categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro):-
+    obtener_presupuesto(Adicional, Porcentaje, Presupuesto),
+    categoria(IdLibro,Categoria),
+    ranking(IdLibro,E),
+    E>=Estrellas,
     not(usado(IdLibro,_)),
     nuevo(IdLibro,Precio),
     Precio =< Presupuesto.
@@ -202,34 +185,34 @@ usados_varias_categorias(Adicional,IdLibro):-
     Precio =< Presupuesto.
 
 %%%%% C U A R T A  R E G L A
-economia_edwardconen_nocrisis(ID):-
-    libro(ID,Libro),
+categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro):-
+    libro(IdLibro,Libro),
     sueldo(S),
-    Presupuesto is S*0.2,
-    usado(ID,Precio),
+    Presupuesto is S*Porcentaje,
+    usado(IdLibro,Precio),
     Precio =< Presupuesto,
-    autor(ID,'Edward Conen'),
-    categoria(ID,'Economia'),
+    autor(IdLibro,Autor),
+    categoria(IdLibro,Categoria),
     atomic_list_concat(Lista,' ',Libro),
-    not(member('Crisis',Lista)).
+    not(member(Palabra,Lista)).
 
-economia_edwardconen_nocrisis(ID):-
-    libro(ID,Libro),
+categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro):-
+    libro(IdLibro,Libro),
     sueldo(S),
-    Presupuesto is S*0.2,
-    not(usado(ID,_)),
-    nuevo(ID,Precio),
+    Presupuesto is S*Porcentaje,
+    not(usado(IdLibro,_)),
+    nuevo(IdLibro,Precio),
     Precio =< Presupuesto,
-    autor(ID,'Edward Conen'),
-    categoria(ID,'Economia'),
+    autor(IdLibro,Autor),
+    categoria(IdLibro,Categoria),
     atomic_list_concat(Lista,' ',Libro),
-    not(member('Crisis',Lista)).
+    not(member(Palabra,Lista)).
 
 %%%%% Q U I N T A  R E G L A 
-viaje_cinco_estrellas(Mes, Anho, IdLibro):-
+categoria_estrellas_estemes(Categoria, Estrellas, Mes, Anho, IdLibro):-
     libro(IdLibro,_),
-    categoria(IdLibro,'Viaje'),
+    categoria(IdLibro,Categoria),
     fecha(IdLibro,_,MesLibro,AnhoLibro),
     MesLibro == Mes,AnhoLibro == Anho,
-    ranking(IdLibro,Estrellas),
-    Estrellas =:= 5.
+    ranking(IdLibro,E),
+    E =:= Estrellas.
