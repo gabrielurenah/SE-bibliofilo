@@ -9,7 +9,7 @@ libro(8,'do not sell at any price: the wild, obsessive hunt for the world\'s rar
 libro(9,'hide and seek: the architecture of cabins and hideouts').
 libro(10,'tiki pop: america imagines its own polynesian paradise').
 libro(11,'el libro de edward').
-libro(12,'el libro de edward con crisis').
+libro(12,'el libro de edward con Crisis').
 libro(13,'el libro del viajero 5 etrella').
 libro(14,'el libro del viajero 4 etrella').
 
@@ -36,8 +36,8 @@ autor(7,'jason fulford').
 autor(8,'amanda petrusich').
 autor(9,'sofia borges').
 autor(10,'sven kirsten').
-autor(11,'edward conen').
-autor(12,'edward conen').
+autor(11,'Edward Conen').
+autor(12,'Edward Conen').
 
 nuevo(1,831.969).
 nuevo(2,810.5805).
@@ -65,8 +65,8 @@ usado(12,20.25).
 ranking(1,5.0).
 ranking(2,5.0).
 ranking(3,0.0).
-ranking(4,0.0).
-ranking(5,4.7).
+ranking(4,4.0).
+ranking(5,3.7).
 ranking(6,0.0).
 ranking(7,4.1).
 ranking(8,5.0).
@@ -105,17 +105,17 @@ fecha(14,21,7,2019).
 categoria(1,'arts & photography').
 categoria(2,'biographies & memoirs').
 categoria(3,'business & money').
-categoria(4,'arts & photography').
-categoria(5,'arts & photography').
+categoria(4,'Ciencia Ficcion').
+categoria(5,'Historia').
 categoria(6,'cookbooks, food & wine').
 categoria(7,'arts & photography').
-categoria(8,'history').
+categoria(8,'Historia').
 categoria(9,'arts & photography').
 categoria(10,'health, fitness & dieting').
-categoria(11,'economia').
-categoria(12,'economia').
-categoria(13,'viaje').
-categoria(14,'viaje').
+categoria(11,'Economia').
+categoria(12,'Economia').
+categoria(13,'Viaje').
+categoria(14,'Viaje').
 
 imagen(1,'http://ecx.images-amazon.com/images/I/61JWyro4ESL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_.jpg').
 imagen(2,'http://ecx.images-amazon.com/images/I/41YJXTJ1IPL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_.jpg').
@@ -130,6 +130,10 @@ imagen(10,'http://ecx.images-amazon.com/images/I/51ZRu3yfdiL._SL160_.jpg').
 
 sueldo(60000).
 
+obtener_presupuesto(Adicional,Total):- 
+    sueldo(S),
+    Total is Adicional+S.
+
 obtener_presupuesto(Porcentaje,Adicional,Total):- 
     obtener_porciento(Porcentaje,Resultado),
     Total is Adicional+Resultado.
@@ -137,16 +141,16 @@ obtener_presupuesto(Porcentaje,Adicional,Total):-
 obtener_porciento(Porcentaje,Resultado):-sueldo(Sueldo),Resultado is Sueldo*Porcentaje.
 
 %%%%% P R I M E R A   R E G L A
-obtener_libros_menosde_siete_dias(Adicional,PorcientoSueldo,Dia,Mes,Anho,IdLibro):-
-    obtener_presupuesto(PorcientoSueldo, Adicional, Presupuesto),
+obtener_libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
+    obtener_presupuesto(Adicional, Presupuesto),
     libro(IdLibro,_),
     fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
-    (AnhoLibro==Anho,MesLibro==Mes,DiaLibro<Dia),
-    usado(IdLibro,Libro),
-    Libro =< Presupuesto.
+    (AnhoLibro==Anho,MesLibro==Mes,DiaLibro=<Dia,DiaLibro>=Dia-7),
+    usado(IdLibro,Precio),
+    Precio =< Presupuesto.
 
-obtener_libros_menosde_siete_dias(Adicional,PorcientoSueldo,Dia,Mes,Anho,IdLibro):-
-    obtener_presupuesto(PorcientoSueldo, Adicional, Presupuesto),
+obtener_libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
+    obtener_presupuesto(Adicional, Presupuesto),
     libro(IdLibro,_),
     fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
     (AnhoLibro==Anho,MesLibro==Mes,DiaLibro<Dia),
@@ -155,56 +159,77 @@ obtener_libros_menosde_siete_dias(Adicional,PorcientoSueldo,Dia,Mes,Anho,IdLibro
     Precio =< Presupuesto.
 
 %%%%% S E G U N D A  R E G L A
-obtener_cienciaficcion_historia(Adicional, PorcientoSueldo, Categoria,Estrellas,IdLibro):-
-    obtener_presupuesto(PorcientoSueldo, Adicional, Presupuesto),
-    categoria(IdLibro,Categoria),
+obtener_cienciaficcion_historia(IdLibro):-
+    obtener_presupuesto(0.1, 3500, Presupuesto),
+    categoria(IdLibro,'Ciencia Ficcion'),
     ranking(IdLibro,Estrellas),
+    Estrellas>=4,
     usado(IdLibro,Precio),
     Precio =< Presupuesto.
 
-  obtener_cienciaficcion_historia(Adicional, PorcientoSueldo, Categoria,Estrellas,IdLibro):-
-    obtener_presupuesto(PorcientoSueldo, Adicional, Presupuesto),
-    categoria(IdLibro,Categoria),
+obtener_cienciaficcion_historia(IdLibro):-
+    obtener_presupuesto(0.1, 3500, Presupuesto),
+    categoria(IdLibro,'Ciencia Ficcion'),
     ranking(IdLibro,Estrellas),
+    Estrellas>=4,
+    not(usado(IdLibro,_)),
+    nuevo(IdLibro,Precio),
+    Precio =< Presupuesto.
+
+obtener_cienciaficcion_historia(IdLibro):-
+    obtener_presupuesto(0.1, 3500, Presupuesto),
+    categoria(IdLibro,'Historia'),
+    ranking(IdLibro,Estrellas),
+    Estrellas>=4,
+    usado(IdLibro,Precio),
+    Precio =< Presupuesto.
+
+obtener_cienciaficcion_historia(IdLibro):-
+    obtener_presupuesto(0.1, 3500, Presupuesto),
+    categoria(IdLibro,'Historia'),
+    ranking(IdLibro,Estrellas),
+    Estrellas>=4,
     not(usado(IdLibro,_)),
     nuevo(IdLibro,Precio),
     Precio =< Presupuesto.
 
 %%%%% T E R C E R A  R E G L A
 %Se toma el 50% de estos libros en Python, y de esa cantidad se extrae los que estén en más de una categoría.
-obtener_usados_varias_categorias(Adicional,Porciento,IdLibro):-
+obtener_usados_varias_categorias(Adicional,IdLibro):-
     libro(IdLibro,_),
-    obtener_presupuesto(Porciento, Adicional, Presupuesto),
+    obtener_presupuesto(Adicional, Presupuesto),
     usado(IdLibro,Precio),
     Precio =< Presupuesto.
 
 %%%%% C U A R T A  R E G L A
-economia_edwardconen_nocrisis(Adicional,Porciento,Autor,Categoria,Palabra,ID):-
+economia_edwardconen_nocrisis(ID):-
     libro(ID,Libro),
-    obtener_presupuesto(Porciento, Adicional, Presupuesto),
+    sueldo(S),
+    Presupuesto is S*0.2,
     usado(ID,Precio),
     Precio =< Presupuesto,
-    autor(ID,Autor),
-    categoria(ID,Categoria),
+    autor(ID,'Edward Conen'),
+    categoria(ID,'Economia'),
     atomic_list_concat(Lista,' ',Libro),
-    not(member(Palabra,Lista)).
+    not(member('Crisis',Lista)).
 
-economia_edwardconen_nocrisis(Adicional,Porciento,Autor,Categoria,Palabra,ID):-
+economia_edwardconen_nocrisis(ID):-
     libro(ID,Libro),
-    obtener_presupuesto(Porciento, Adicional, Presupuesto),
-    not(usado(ID,Precio)),
+    sueldo(S),
+    Presupuesto is S*0.2,
+    not(usado(ID,_)),
     nuevo(ID,Precio),
     Precio =< Presupuesto,
-    autor(ID,Autor),
-    categoria(ID,Categoria),
+    autor(ID,'Edward Conen'),
+    categoria(ID,'Economia'),
     atomic_list_concat(Lista,' ',Libro),
-    not(member(Palabra,Lista)).
+    not(member('Crisis',Lista)).
 
 %%%%% Q U I N T A  R E G L A 
-quinta(Categoria, Mes, Ano, Estrellas, IdLibro):-
+quinta(Mes, Anho, IdLibro):-
     libro(IdLibro,_),
-    categoria(IdLibro,Categoria),
-    fecha(IdLibro,_,ML,AL),
-    ML == Mes,AL == Ano,
-    ranking(IdLibro,E),
-    E=:=Estrellas.
+    categoria(IdLibro,'Viaje'),
+    fecha(IdLibro,_,MesLibro,AnhoLibro),
+    MesLibro == Mes,AnhoLibro == Anho,
+    ranking(IdLibro,Estrellas),
+    Estrellas =:= 5.
