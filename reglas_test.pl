@@ -200,7 +200,7 @@ economia_edwardconen_nocrisis(Adicional,Porciento,Autor,Categoria,Palabra,ID):-
     atomic_list_concat(Lista,' ',Libro),
     not(member(Palabra,Lista)).
 
-%%%%% Q U I N T A  R E G L A
+%%%%% Q U I N T A  R E G L A 
 quinta(Categoria, Mes, Ano, Estrellas, IdLibro):-
     libro(IdLibro,_),
     categoria(IdLibro,Categoria),
