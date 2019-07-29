@@ -165,7 +165,7 @@ libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
 
 %%%%% S E G U N D A  R E G L A
 categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro):-
-    obtener_presupuesto(Adicoinal, Porcentaje, Presupuesto),
+    obtener_presupuesto(Adicional, Porcentaje, Presupuesto),
     categoria(IdLibro,Categoria),
     ranking(IdLibro,E),
     E>=Estrellas,
