@@ -1,3 +1,8 @@
+:-dynamic sueldo/1.
+sueldo(60000).
+
+cambiar_sueldo(X):-(abolish(sueldo/1),assert(sueldo(X))).
+
 libro(1,'paint mojo - a mixed-media workshop: creative layering techniques for personal expression').
 libro(2,'yeah! yeah! yeah!: the story of pop music from bill haley to beyonce').
 libro(3,'the digital photography book, part 5: photo recipes').
@@ -128,7 +133,7 @@ imagen(8,'http://ecx.images-amazon.com/images/I/518WevWL5AL._SL160_PIsitb-sticke
 imagen(9,'http://ecx.images-amazon.com/images/I/61wwUtpJeoL._SL160_.jpg').
 imagen(10,'http://ecx.images-amazon.com/images/I/51ZRu3yfdiL._SL160_.jpg').
 
-sueldo(60000).
+
 
 obtener_presupuesto(Adicional,Total):- 
     sueldo(S),
