@@ -1,4 +1,4 @@
 :- dynamic sueldo/1.
 
-sueldo(45000).
+sueldo(35000).
 
