@@ -1,7 +1,8 @@
 :-dynamic sueldo/1.
 sueldo(60000).
+cambiar_sueldo(X):-(abolish(sueldo/1),assert(sueldo(X))),guardar_sueldo.
 
-cambiar_sueldo(X):-(abolish(sueldo/1),assert(sueldo(X))).
+guardar_sueldo:-tell('a_db.txt'), listing(sueldo), told.
 
 libro(1,'paint mojo - a mixed-media workshop: creative layering techniques for personal expression').
 libro(2,'yeah! yeah! yeah!: the story of pop music from bill haley to beyonce').
