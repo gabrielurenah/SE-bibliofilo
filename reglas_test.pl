@@ -141,7 +141,7 @@ obtener_presupuesto(Porcentaje,Adicional,Total):-
 obtener_porciento(Porcentaje,Resultado):-sueldo(Sueldo),Resultado is Sueldo*Porcentaje.
 
 %%%%% P R I M E R A   R E G L A
-obtener_libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
+ibros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
     obtener_presupuesto(Adicional, Presupuesto),
     libro(IdLibro,_),
     fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
@@ -149,7 +149,7 @@ obtener_libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
     usado(IdLibro,Precio),
     Precio =< Presupuesto.
 
-obtener_libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
+libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
     obtener_presupuesto(Adicional, Presupuesto),
     libro(IdLibro,_),
     fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
@@ -159,7 +159,7 @@ obtener_libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
     Precio =< Presupuesto.
 
 %%%%% S E G U N D A  R E G L A
-obtener_cienciaficcion_historia(IdLibro):-
+cienciaficcion_historia(IdLibro):-
     obtener_presupuesto(0.1, 3500, Presupuesto),
     categoria(IdLibro,'Ciencia Ficcion'),
     ranking(IdLibro,Estrellas),
@@ -167,7 +167,7 @@ obtener_cienciaficcion_historia(IdLibro):-
     usado(IdLibro,Precio),
     Precio =< Presupuesto.
 
-obtener_cienciaficcion_historia(IdLibro):-
+cienciaficcion_historia(IdLibro):-
     obtener_presupuesto(0.1, 3500, Presupuesto),
     categoria(IdLibro,'Ciencia Ficcion'),
     ranking(IdLibro,Estrellas),
@@ -176,7 +176,7 @@ obtener_cienciaficcion_historia(IdLibro):-
     nuevo(IdLibro,Precio),
     Precio =< Presupuesto.
 
-obtener_cienciaficcion_historia(IdLibro):-
+cienciaficcion_historia(IdLibro):-
     obtener_presupuesto(0.1, 3500, Presupuesto),
     categoria(IdLibro,'Historia'),
     ranking(IdLibro,Estrellas),
@@ -184,7 +184,7 @@ obtener_cienciaficcion_historia(IdLibro):-
     usado(IdLibro,Precio),
     Precio =< Presupuesto.
 
-obtener_cienciaficcion_historia(IdLibro):-
+cienciaficcion_historia(IdLibro):-
     obtener_presupuesto(0.1, 3500, Presupuesto),
     categoria(IdLibro,'Historia'),
     ranking(IdLibro,Estrellas),
@@ -195,7 +195,7 @@ obtener_cienciaficcion_historia(IdLibro):-
 
 %%%%% T E R C E R A  R E G L A
 %Se toma el 50% de estos libros en Python, y de esa cantidad se extrae los que estén en más de una categoría.
-obtener_usados_varias_categorias(Adicional,IdLibro):-
+usados_varias_categorias(Adicional,IdLibro):-
     libro(IdLibro,_),
     obtener_presupuesto(Adicional, Presupuesto),
     usado(IdLibro,Precio),
@@ -226,7 +226,7 @@ economia_edwardconen_nocrisis(ID):-
     not(member('Crisis',Lista)).
 
 %%%%% Q U I N T A  R E G L A 
-quinta(Mes, Anho, IdLibro):-
+viaje_cinco_estrellas(Mes, Anho, IdLibro):-
     libro(IdLibro,_),
     categoria(IdLibro,'Viaje'),
     fecha(IdLibro,_,MesLibro,AnhoLibro),
