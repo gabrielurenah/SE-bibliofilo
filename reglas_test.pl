@@ -3,156 +3,147 @@ sueldo(60000).
 
 cambiar_sueldo(X):-(abolish(sueldo/1),assert(sueldo(X))).
 
-libro(1,'paint mojo - a mixed-media workshop: creative layering techniques for personal expression').
-libro(2,'yeah! yeah! yeah!: the story of pop music from bill haley to beyonce').
-libro(3,'the digital photography book, part 5: photo recipes').
-libro(4,'mapping it out: an alternative atlas of contemporary cartographies').
-libro(5,'the dirt: confessions of the world\'s most notorious rock band').
-libro(6,'words for pictures: the art and business of writing comics and graphic novels').
-libro(7,'the photographer\'s playbook: 307 assignments and ideas').
-libro(8,'do not sell at any price: the wild, obsessive hunt for the world\'s rarest 78rpm records (english and english edition)').
-libro(9,'hide and seek: the architecture of cabins and hideouts').
-libro(10,'tiki pop: america imagines its own polynesian paradise').
-libro(11,'el libro de edward').
-libro(12,'el libro de edward con Crisis').
-libro(13,'el libro del viajero 5 etrella').
-libro(14,'el libro del viajero 4 etrella').
+autor('0439708184','J.K. Rowling').
+autor('0525633758','Michelle Obama').
+autor('1473619556','Melissa Hartwig').
+autor('1503900916','Keith Houghton').
+autor('1542040094','van der Zijl').
+autor('1542041643','Vivian Barz').
+autor('1542091330','Claire McGowan').
+autor('1542092809', 'Julianne MacLean').
+autor('1542093082', 'Kerry Lonsdale').
+autor('1632150786','Brian K Vaughan').
+autor('1984827618','Delia Owens').
+autor('B003JFJHTS','Margaret Atwood ').
+autor('B06Y55SB4X','Marc Cameron').
+autor('B076CJX3YN','Maddie Dawson').
+autor('B07G8NTJVP','Lisa Gray').
 
-casa_editora(1,'casa editora 1').
-casa_editora(2,'casa editora 2').
-casa_editora(3,'casa editora 3').
-casa_editora(4,'casa editora 4').
-casa_editora(5,'casa editora 5').
-casa_editora(6,'casa editora 1').
-casa_editora(7,'casa editora 2').
-casa_editora(8,'casa editora 3').
-casa_editora(9,'casa editora 4').
-casa_editora(10,'casa editora 5').
-casa_editora(11,'casa editora 1').
-casa_editora(12,'casa editora 1').
-casa_editora(13,'casa editora 2').
-casa_editora(14,'casa editora 2').
+casa_editora('0439708184','Pottermore Publishing').
+casa_editora('0525633758',' Random House Large Print').
+casa_editora('1473619556','Yellow Kite').
+casa_editora('1503900916','Thomas & Mercer').
+casa_editora('1542040094','Amazon Crossing').
+casa_editora('1542041643','Thomas & Mercer').
+casa_editora('1542091330', 'Thomas & Mercer').
+casa_editora('1542092809', 'Lake Union Publishing').
+casa_editora('1542093082', 'Lake Union Publishing').
+casa_editora('1632150786','Image Comics').
+casa_editora('1984827618','Random House Large Print').
+casa_editora('B003JFJHTS','Houghton Mifflin Harcourt').
+casa_editora('B06Y55SB4X','G.P. Putnams Sons').
+casa_editora('B076CJX3YN','Lake Union Publishing').
+casa_editora('B07G8NTJVP','Thomas & Mercer').
 
+categoria('0439708184','Fantasia').
+categoria('0525633758','Biografia').
+categoria('1473619556','Cocina').
+categoria('1503900916','Suspenso').
+categoria('1542040094','Biografia').
+categoria('1542041643','Misterio').
+categoria('1542091330', 'Ficcion').
+categoria('1542092809', 'Ficcion').
+categoria('1542093082', 'Ficcion').
+categoria('1632150786','Ficcion').
+categoria('1984827618','Ficcion').
+categoria('B003JFJHTS','Ficcion').
+categoria('B06Y55SB4X','Suspenso').
+categoria('B076CJX3YN','Romance').
+categoria('B07G8NTJVP','Misterio').
 
-isbn(1,'1440333130').
-isbn(2,'0393242692').
-isbn(3,'0133856887').
-isbn(4,'0500239185').
-isbn(5,'b00jofs5bs').
-isbn(6,'0770434355').
-isbn(7,'159711247x').
-isbn(8,'1451667051').
-isbn(9,'3899555457').
-isbn(10,'3836548518').
-isbn(11,'111111').
+% Fecha ID, dia, mes, año
+fecha('0439708184',8,12,2015).
+fecha('0525633758',18,11,2018).
+fecha('1473619556',1,1,2015).
+fecha('1503900916',19,4,2019).
+fecha('1542040094',1,8,2019).
+fecha('1542041643',1,9,2019).
+fecha('1542091330',1,9,2019).
+fecha('1542092809', 1,9,2019).
+fecha('1542093082',9,7,2019).
+fecha('1632150786',25,11,2014).
+fecha('1984827618',14,8,2018).
+fecha('B003JFJHTS',17,2,1986).
+fecha('B06Y55SB4X',28,11,2017).
+fecha('B076CJX3YN',1,6,2019).
+fecha('B07G8NTJVP',1,6,2019).
 
-autor(1,'tracy verdugo').
-autor(2,'bob stanley').
-autor(3,'kelby').
-autor(4,'hans ulrich obrist').
-autor(5,'tommy lee').
-autor(6,'brian michael bendis').
-autor(7,'jason fulford').
-autor(8,'amanda petrusich').
-autor(9,'sofia borges').
-autor(10,'sven kirsten').
-autor(11,'Edward Conen').
-autor(12,'Edward Conen').
+libro('0439708184','Harry Potter and the Sorcerers Stone').
+libro('0525633758','Becoming').
+libro('1473619556','The Whole 30: The Official 30-Day Guide to Total Health and Food Freedom').
+libro('1503900916','Dont Even Breathe').
+libro('1542040094','The Boy Between Worlds: A Biography ').
+libro('1542041643','Forgotten Bones (Dead Remaining Book 1)').
+libro('1542091330','What You Did').
+libro('1542092809', 'A Fire Sparkling').
+libro('1542093082', 'Last Summer: A Novel').
+libro('1632150786','Saga Book One').
+libro('1984827618','Where the Crawdads Sing').
+libro('B003JFJHTS','The Handmaids Tale').
+libro('B06Y55SB4X','Tom Clancy Power and Empire').
+libro('B076CJX3YN','Matchmaking for Beginners: A Novel').
+libro('B07G8NTJVP','Thin Air (Jessica Shaw Book 1)').
 
-nuevo(1,831.969).
-nuevo(2,810.5805).
-nuevo(3,770.859).
-nuevo(4,1366.6815).
-nuevo(5,436.0635).
-nuevo(6,832.842).
-nuevo(7,744.2325).
-nuevo(8,725.8995).
-nuevo(9,2003.535).
-nuevo(10,1773.936).
-nuevo(11,50.00).
-nuevo(12,1.00).
+material('0439708184','Hardcover').
+material('0525633758','Paperback').
+material('1473619556','Paperback').
+material('1503900916','Paperback').
+material('1542040094','Paperback').
+material('1542041643','Paperback').
+material('1542091330','Hardcover').
+material('1542092809', 'Hardcover').
+material('1542093082', 'Paperback').
+material('1632150786','Hardcover').
+material('1984827618','Paperback').
+material('B003JFJHTS','Hardcover').
+material('B06Y55SB4X',Paperback).
+material('B076CJX3YN','Hardcover').
+material('B07G8NTJVP','Paperback').
 
-usado(1,755.145).
-usado(2,783.081).
-usado(4,1136.2095).
-usado(6,657.369).
-usado(7,663.0435).
-usado(8,635.9805).
-usado(10,1734.651).
-usado(11,25.25).
-usado(12,20.25).
+nuevo('0439708184',699.92).
+nuevo('0525633758',1197.99).
+nuevo('1473619556',1147.5).
+nuevo('1503900916',406.98).
+nuevo('1542040094',611.49).
+nuevo('1542041643',509.49).
+nuevo('1542091330',1250).
+nuevo('1542092809', 509.49).
+nuevo('1542093082', 560.49).
+nuevo('1632150786',1586.10).
+nuevo('1984827618',856.8).
+nuevo('B003JFJHTS',522.75).
+nuevo('B06Y55SB4X',458.49).
+nuevo('B076CJX3YN',658.41).
+nuevo('B07G8NTJVP',606.9).
 
-ranking(1,5.0).
-ranking(2,5.0).
-ranking(3,0.0).
-ranking(4,4.0).
-ranking(5,4.7).
-ranking(6,0.0).
-ranking(7,4.1).
-ranking(8,5.0).
-ranking(9,0.0).
-ranking(10,4.0).
-ranking(11,5.0).
-ranking(12,4.0).
-ranking(13,5.0).
-ranking(14,4.0).
+ranking('0439708184',4.7).
+ranking('0525633758',4.9).
+ranking('1473619556',4.6).
+ranking('1503900916',4.3).
+ranking('1542040094',4,7).
+ranking('1542041643',4.6).
+ranking('1542091330',4.8).
+ranking('1542092809', 4.7).
+ranking('1542093082', 4.7).
+ranking('1632150786',4.8).
+ranking('1984827618',4.8).
+ranking('B003JFJHTS',4.1).
+ranking('B06Y55SB4X',4.1).
+ranking('B076CJX3YN',4.6).
+ranking('B07G8NTJVP',4.3).
 
-material(1,'hardcover').
-material(2,'paperback').
-material(3,'paperback').
-material(4,'hardcover').
-material(5,'paperback').
-material(6,'hardcover').
-material(7,'paperback').
-material(8,'hardcover').
-material(9,'fisico').
-material(10,'paperback').
-material(11,'hardcover').
-material(12,'hardcover').
-material(13,'hardcover').
-
-%% ID, Dia, Mes, Ano
-fecha(1,18,7,2019).
-fecha(2,14,7,2019).
-fecha(3,7,8,2019).
-fecha(4,30,6,2019).
-fecha(5,30,6,2019).
-fecha(6,22,7,2019).
-fecha(7,30,6,2019).
-fecha(8,8,7,2019).
-fecha(9,25,8,2019).
-fecha(10,1,8,2019).
-fecha(11,1,8,2019).
-fecha(12,1,5,2018).
-fecha(13,31,7,2019).
-fecha(14,21,7,2019).
-
-categoria(1,'arts & photography').
-categoria(2,'biographies & memoirs').
-categoria(3,'business & money').
-categoria(4,'Ciencia Ficcion').
-categoria(5,'Historia').
-categoria(6,'cookbooks, food & wine').
-categoria(7,'arts & photography').
-categoria(8,'Historia').
-categoria(9,'arts & photography').
-categoria(10,'health, fitness & dieting').
-categoria(11,'Economia').
-categoria(12,'Economia').
-categoria(13,'Viaje').
-categoria(14,'Viaje').
-
-imagen(1,'http://ecx.images-amazon.com/images/I/61JWyro4ESL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_.jpg').
-imagen(2,'http://ecx.images-amazon.com/images/I/41YJXTJ1IPL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_.jpg').
-imagen(3,'http://ecx.images-amazon.com/images/I/51Kbgj%2BFPAL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_.jpg').
-imagen(4,'http://ecx.images-amazon.com/images/I/51YZoxtXQEL._SL160_.jpg').
-imagen(5,'http://ecx.images-amazon.com/images/I/51elsMrnPaL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_.jpg').
-imagen(6,'http://ecx.images-amazon.com/images/I/61vCYRgkUaL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_.jpg').
-imagen(7,'http://ecx.images-amazon.com/images/I/61szGnV%2B0tL._SL160_.jpg').
-imagen(8,'http://ecx.images-amazon.com/images/I/518WevWL5AL._SL160_PIsitb-sticker-arrow-dp,TopRight,12,-18_SH30_OU01_.jpg').
-imagen(9,'http://ecx.images-amazon.com/images/I/61wwUtpJeoL._SL160_.jpg').
-imagen(10,'http://ecx.images-amazon.com/images/I/51ZRu3yfdiL._SL160_.jpg').
-
+usado('0439708184',100.0).
+usado('0525633758',983.79).
+usado('1473619556',678.81).
+usado('1503900916',498.27).
+usado('1542091330',510).
+usado('1542093082', 459).
+usado('1632150786',1219.41).
+usado('1984827618',805.29).
+usado('B003JFJHTS',374.34).
+usado('B06Y55SB4X',50.0).
+usado('B076CJX3YN',313.14).
+usado('B07G8NTJVP',346.29).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% R E G L A S     D E      A Y U D A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
