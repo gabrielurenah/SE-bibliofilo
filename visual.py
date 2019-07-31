@@ -2,13 +2,12 @@ from pyswip import Prolog, Query, Variable, Functor
 from tkinter import *
 from tkinter import scrolledtext
 from tkinter import ttk
-
+from datetime import date
 from tkinter.ttk import *
 #Prolog instance created and opened file
 prolog = Prolog()
 prolog.consult("reglas_test.pl")
-
-
+date = date.today()
 
 
 
@@ -84,27 +83,27 @@ def tabContent1(tab1):
     adicional = Entry(labelFrame)
     adicional.grid(column=1, row=3)
 
-    label_dia = Label(labelFrame, text="Dia", anchor='e', width=30)
-    label_dia.grid(column=0, row=5, pady=10)
-    dia = Entry(labelFrame)
-    dia.grid(column=1, row=5)
+    # label_dia = Label(labelFrame, text="Dia", anchor='e', width=30)
+    # label_dia.grid(column=0, row=5, pady=10)
+    # dia = Entry(labelFrame)
+    # dia.grid(column=1, row=5)
+    #
+    # label_mes = Label(labelFrame, text="Mes", anchor='e', width=30)
+    # label_mes.grid(column=0, row=7, pady=10)
+    # mes = Entry(labelFrame)
+    # mes.grid(column=1, row=7)
+    #
+    # label_anho = Label(labelFrame, text="Año", anchor='e', width=30)
+    # label_anho.grid(column=0, row=9, pady=10)
+    # anho = Entry(labelFrame)
+    # anho.grid(column=1, row=9)
+    #
+    # label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
+    # label_id_libro.grid(column=0, row=11, pady=10)
+    # id_libro = Entry(labelFrame)
+    # id_libro.grid(column=1, row=11)
 
-    label_mes = Label(labelFrame, text="Mes", anchor='e', width=30)
-    label_mes.grid(column=0, row=7, pady=10)
-    mes = Entry(labelFrame)
-    mes.grid(column=1, row=7)
-
-    label_anho = Label(labelFrame, text="Año", anchor='e', width=30)
-    label_anho.grid(column=0, row=9, pady=10)
-    anho = Entry(labelFrame)
-    anho.grid(column=1, row=9)
-
-    label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
-    label_id_libro.grid(column=0, row=11, pady=10)
-    id_libro = Entry(labelFrame)
-    id_libro.grid(column=1, row=11)
-
-    btn = Button(labelFrame, text="Buscar", command=lambda: clicked1st(adicional, dia, mes, anho, id_libro, labelFrame))
+    btn = Button(labelFrame, text="Buscar", command=lambda: clicked1st(adicional, date.day, date.month, date.year, "ID", labelFrame))
     btn.grid(column=1, row=13)
 
 
@@ -132,13 +131,13 @@ def tabContent2(tab2):
     estrellas = Entry(labelFrame)
     estrellas.grid(column=1, row=9)
 
-    label_id_libro = Label(labelFrame, text="Id_libro", anchor='e', width=30)
-    label_id_libro.grid(column=0, row=11, pady=10)
-    id_libro = Entry(labelFrame)
-    id_libro.grid(column=1, row=11)
+    # label_id_libro = Label(labelFrame, text="Id_libro", anchor='e', width=30)
+    # label_id_libro.grid(column=0, row=11, pady=10)
+    # id_libro = Entry(labelFrame)
+    # id_libro.grid(column=1, row=11)
 
     btn = Button(labelFrame, text="Buscar",
-                 command=lambda: clicked2nd(adicional, porciento_sueldo, categoria, estrellas, id_libro, labelFrame))
+                 command=lambda: clicked2nd(adicional, porciento_sueldo, categoria, estrellas, "ID", labelFrame))
     btn.grid(column=1, row=13)
 
 def tabContent3(tab3):
@@ -180,13 +179,13 @@ def tabContent4(tab4):
     palabra = Entry(labelFrame)
     palabra.grid(column=1, row=9)
 
-    label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
-    label_id_libro.grid(column=0, row=11, pady=10)
-    id_libro = Entry(labelFrame)
-    id_libro.grid(column=1, row=11)
+    # label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
+    # label_id_libro.grid(column=0, row=11, pady=10)
+    # id_libro = Entry(labelFrame)
+    # id_libro.grid(column=1, row=11)
 
     btn = Button(labelFrame, text="Buscar",
-                 command=lambda: clicked4th(porciento_sueldo, categoria, autor, palabra, id_libro, labelFrame))
+                 command=lambda: clicked4th(porciento_sueldo, categoria, autor, palabra, "ID", labelFrame))
     btn.grid(column=1, row=13)
 
 def tabContent5(tab5):
@@ -203,27 +202,27 @@ def tabContent5(tab5):
     estrellas = Entry(labelFrame)
     estrellas.grid(column=1, row=5)
 
-    label_mes = Label(labelFrame, text="Mes", anchor='e', width=30)
-    label_mes.grid(column=0, row=7, pady=10)
-    mes = Entry(labelFrame)
-    mes.grid(column=1, row=7)
-
-    label_anho = Label(labelFrame, text="Año", anchor='e', width=30)
-    label_anho.grid(column=0, row=9, pady=10)
-    anho = Entry(labelFrame)
-    anho.grid(column=1, row=9)
-
-    label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
-    label_id_libro.grid(column=0, row=11, pady=10)
-    id_libro = Entry(labelFrame)
-    id_libro.grid(column=1, row=11)
+    # label_mes = Label(labelFrame, text="Mes", anchor='e', width=30)
+    # label_mes.grid(column=0, row=7, pady=10)
+    # mes = Entry(labelFrame)
+    # mes.grid(column=1, row=7)
+    #
+    # label_anho = Label(labelFrame, text="Año", anchor='e', width=30)
+    # label_anho.grid(column=0, row=9, pady=10)
+    # anho = Entry(labelFrame)
+    # anho.grid(column=1, row=9)
+    #
+    # label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
+    # label_id_libro.grid(column=0, row=11, pady=10)
+    # id_libro = Entry(labelFrame)
+    # id_libro.grid(column=1, row=11)
 
     btn = Button(labelFrame, text="Buscar",
-                 command=lambda: clicked5th(categoria, estrellas, mes, anho, id_libro, labelFrame))
+                 command=lambda: clicked5th(categoria, estrellas, date.month, date.year, "ID", labelFrame))
     btn.grid(column=1, row=13)
 
 
-def get_book_info(id):
+def get_book_info(id, txt):
     name = ""
     author = ""
     category = ""
@@ -249,7 +248,11 @@ def get_book_info(id):
             elif (key == 'Anho'):
                 year = result[key]
 
-    print(name,author,category,img,day,month,year)
+    txt.insert(INSERT, "\nLibro "+ str(id))
+    txt.insert(INSERT, "\nNombre: "+ name)
+    txt.insert(INSERT, "\nAutor: "+ author)
+    txt.insert(INSERT, "\nCategoria: "+ category)
+    txt.insert(INSERT, "\nFecha: "+ str(day) + "-" + str(month) + "-" + str(year))
 
     # print(name)
 
@@ -259,10 +262,10 @@ def get_book_info(id):
 def clicked1st(adicional, dia, mes, anho, id_libro, window):
         fact = "libros_menosde_siete_dias("\
             +adicional.get()+\
-               ","+dia.get()+\
-               ","+mes.get()+\
-               ","+anho.get()+\
-               ","+id_libro.get()+\
+               ","+str(dia)+\
+               ","+str(mes)+\
+               ","+str(anho)+\
+               ","+id_libro+\
                ")"
 
         print(fact)
@@ -271,10 +274,13 @@ def clicked1st(adicional, dia, mes, anho, id_libro, window):
 
         txt = scrolledtext.ScrolledText(window, width=40, height=10)
         txt.grid(column=1, row=15)
-        for result in selected_option:
-            for key in result.keys():
-                txt.insert(INSERT,(key + ' : ' + str(result[key]) + "\n"))
 
+        if(selected_option):
+            for result in selected_option:
+                for key in result.keys():
+                    get_book_info(result[key], txt)
+        else:
+            txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
 def clicked2nd(adicional, porciento_sueldo, categoria, estrellas, id_libro, window):
     fact = "categoria_estrellas(" \
@@ -282,7 +288,7 @@ def clicked2nd(adicional, porciento_sueldo, categoria, estrellas, id_libro, wind
             "," + porciento_sueldo.get() + \
             "," + categoria.get() + \
             "," + estrellas.get() + \
-            "," + id_libro.get() + \
+            "," + id_libro + \
             ")"
 
     print(fact)
@@ -290,10 +296,14 @@ def clicked2nd(adicional, porciento_sueldo, categoria, estrellas, id_libro, wind
 
     txt = scrolledtext.ScrolledText(window, width=40, height=10)
     txt.grid(column=1, row=15)
-    for result in selected_option:
-        for key in result.keys():
-            txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
 
+    if(selected_option):
+        for result in selected_option:
+            for key in result.keys():
+                get_book_info(result[key], txt)
+            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+    else:
+        txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
 def clicked4th(porciento_sueldo, categoria, autor, palabra, id_libro, window):
     fact = "categoria_autor_nopalabra(" \
@@ -301,7 +311,7 @@ def clicked4th(porciento_sueldo, categoria, autor, palabra, id_libro, window):
             "," + categoria.get() + \
             "," + autor.get() + \
             "," + palabra.get() + \
-            "," + id_libro.get() + \
+            "," + id_libro + \
             ")"
 
 
@@ -311,18 +321,21 @@ def clicked4th(porciento_sueldo, categoria, autor, palabra, id_libro, window):
 
     txt = scrolledtext.ScrolledText(window, width=40, height=10)
     txt.grid(column=1, row=15)
-    for result in selected_option:
-        for key in result.keys():
-            txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
-
+    if(selected_option):
+        for result in selected_option:
+            for key in result.keys():
+                get_book_info(result[key],txt)
+            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+    else:
+        txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
 def clicked5th(categoria, estrellas, mes, anho, id_libro, window):
     fact = "categoria_estrellas_estemes(" \
             + categoria.get() + \
             "," + estrellas.get() + \
-            "," + mes.get() + \
-            "," + anho.get() + \
-            "," + id_libro.get() + \
+            "," + str(mes) + \
+            "," + str(anho) + \
+            "," + id_libro + \
             ")"
 
     print(fact)
@@ -330,10 +343,13 @@ def clicked5th(categoria, estrellas, mes, anho, id_libro, window):
 
     txt = scrolledtext.ScrolledText(window, width=40, height=10)
     txt.grid(column=1, row=15)
-    for result in selected_option:
-        for key in result.keys():
-            txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
-
+    if(selected_option):
+        for result in selected_option:
+            for key in result.keys():
+                get_book_info(result[key], txt)
+            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+    else:
+        txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
 # def on_value_change(combo,window):
 #     print(combo.get())
@@ -487,4 +503,3 @@ def main():
 
 if __name__ == '__main__' or __name__ == 'testpyswip':
     main()
-
