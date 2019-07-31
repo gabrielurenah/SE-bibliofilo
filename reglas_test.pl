@@ -179,6 +179,13 @@ obtener_combinaciones(Presupuesto,Lista,Combinaciones):-
     suma(Combinaciones,Respuesta),
     Respuesta=<Presupuesto.
 
+informacion_libro(Id, Nombre, Autor, Categoria, Imagen, Dia, Mes, Anho) :-
+    libro(Id, Nombre),
+    autor(Id, Autor),
+    categoria(Id, Categoria),
+    imagen(Id, Imagen),
+    fecha(Id, Dia, Mes, Anho).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% P R I M E R A   R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
