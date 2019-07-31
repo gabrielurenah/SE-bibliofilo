@@ -209,6 +209,35 @@ def create_window():
 
     window.mainloop()
 
+def get_book_info(id):
+    name = ""
+    author = ""
+    category = ""
+    img = ""
+    day = ""
+    month = ""
+    year = ""
+    info = list(prolog.query("informacion_libro(" + str(id) + ",Nombre,Autor,Categoria,Imagen,Dia,Mes,Anho)"))
+    for result in info:
+        for key in result.keys():
+            if(key == 'Nombre'):
+                name = result[key]
+            elif(key == 'Autor'):
+                author = result[key]
+            elif (key == 'Categoria'):
+                category = result[key]
+            elif (key == 'Imagen'):
+                img= result[key]
+            elif (key == 'Dia'):
+                day = result[key]
+            elif (key == 'Mes'):
+                month = result[key]
+            elif (key == 'Anho'):
+                year = result[key]
+
+    print(name,author,category,img,day,month,year)
+
+    # print(name)
 
 
 
@@ -440,7 +469,7 @@ def cleanWindow(window):
 def main():
     print("Initiated")
     create_window()
-
+    get_book_info(1)
 
 if __name__ == '__main__' or __name__ == 'testpyswip':
     main()
