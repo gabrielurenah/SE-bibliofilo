@@ -18,6 +18,21 @@ libro(12,'el libro de edward con Crisis').
 libro(13,'el libro del viajero 5 etrella').
 libro(14,'el libro del viajero 4 etrella').
 
+casa_editora(1,'casa editora 1').
+casa_editora(2,'casa editora 2').
+casa_editora(3,'casa editora 3').
+casa_editora(4,'casa editora 4').
+casa_editora(5,'casa editora 5').
+casa_editora(6,'casa editora 1').
+casa_editora(7,'casa editora 2').
+casa_editora(8,'casa editora 3').
+casa_editora(9,'casa editora 4').
+casa_editora(10,'casa editora 5').
+casa_editora(11,'casa editora 1').
+casa_editora(12,'casa editora 1').
+casa_editora(13,'casa editora 2').
+casa_editora(14,'casa editora 2').
+
 
 isbn(1,'1440333130').
 isbn(2,'0393242692').
@@ -71,26 +86,30 @@ ranking(1,5.0).
 ranking(2,5.0).
 ranking(3,0.0).
 ranking(4,4.0).
-ranking(5,3.7).
+ranking(5,4.7).
 ranking(6,0.0).
 ranking(7,4.1).
 ranking(8,5.0).
 ranking(9,0.0).
 ranking(10,4.0).
 ranking(11,5.0).
+ranking(12,4.0).
 ranking(13,5.0).
 ranking(14,4.0).
 
-tipo(1,'fisico').
-tipo(2,'fisico').
-tipo(3,'fisico').
-tipo(4,'fisico').
-tipo(5,'ebook').
-tipo(6,'fisico').
-tipo(7,'fisico').
-tipo(8,'fisico').
-tipo(9,'fisico').
-tipo(10,'fisico').
+material(1,'hardcover').
+material(2,'paperback').
+material(3,'paperback').
+material(4,'hardcover').
+material(5,'paperback').
+material(6,'hardcover').
+material(7,'paperback').
+material(8,'hardcover').
+material(9,'fisico').
+material(10,'paperback').
+material(11,'hardcover').
+material(12,'hardcover').
+material(13,'hardcover').
 
 %% ID, Dia, Mes, Ano
 fecha(1,18,7,2019).
@@ -104,6 +123,7 @@ fecha(8,8,7,2019).
 fecha(9,25,8,2019).
 fecha(10,1,8,2019).
 fecha(11,1,8,2019).
+fecha(12,1,5,2018).
 fecha(13,31,7,2019).
 fecha(14,21,7,2019).
 
@@ -134,7 +154,9 @@ imagen(9,'http://ecx.images-amazon.com/images/I/61wwUtpJeoL._SL160_.jpg').
 imagen(10,'http://ecx.images-amazon.com/images/I/51ZRu3yfdiL._SL160_.jpg').
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% R E G L A S     D E      A Y U D A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 obtener_presupuesto(Adicional,Total):- 
     sueldo(S),
     Total is Adicional+S.
@@ -147,65 +169,70 @@ combinaciones([H|_], [H]).
 combinaciones([_|T], C) :- combinaciones(T, C).
 combinaciones([H|T], [H|C]) :- combinaciones(T, C).
 
+suma([],0).
+suma([[_,X]|Cola],Total):-suma(Cola,Temp),Total is Temp+X.
+
 obtener_porciento(Porcentaje,Resultado):-sueldo(Sueldo),Resultado is Sueldo*Porcentaje.
 
-resultado(Lista,X):-combinaciones(Lista,X).
+obtener_combinaciones(Presupuesto,Lista,Combinaciones):-
+    combinaciones(Lista,Combinaciones),
+    suma(Combinaciones,Respuesta),
+    Respuesta=<Presupuesto.
 
-%%%%% P R I M E R A   R E G L A
-libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro, R):-
-    obtener_presupuesto(Adicional, Presupuesto),
-    libro(IdLibro,_),
-    fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% P R I M E R A   R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+libros_menosde_siete_dias(Lista,Adicional,Dia,Mes,Anho):-
+    obtener_presupuesto(Adicional,Presupuesto),
+    findall([Id,Precio],busqueda_libros_semana_nuevos(Id,Precio,Dia,Mes,Anho,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+
+libros_menosde_siete_dias(Lista,Adicional,Dia,Mes,Anho):-
+    obtener_presupuesto(Adicional,Presupuesto),
+    findall([Id,Precio],busqueda_libros_semana_usados(Id,Precio,Dia,Mes,Anho,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AYUDA DE LA PRIMERA REGLA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+busqueda_libros_semana_nuevos(Id,Precio,Dia,Mes,Anho,Presupuesto):-
+    nuevo(Id,Precio),
+    fecha(Id,DiaLibro,MesLibro,AnhoLibro),
     (AnhoLibro==Anho,MesLibro==Mes,DiaLibro=<Dia,DiaLibro>=Dia-7),
-    usado(IdLibro,Precio),
-    Precio =< Presupuesto,
-    findall([IdLibro,Precio], nuevo(IdLibro,Precio), ListaAux),
-    findall(X,combinaciones(ListaAux,X), R).
+    Precio=<Presupuesto.
 
-libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro, R):-
-    obtener_presupuesto(Adicional, Presupuesto),
-    libro(IdLibro,_),
-    % fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
-    % (AnhoLibro==Anho,MesLibro==Mes,DiaLibro<Dia),
-    % not(usado(IdLibro,_)),
-    nuevo(IdLibro,Precio),
-    Precio =< Presupuesto,
-    findall([IdLibro,Precio],nuevo(IdLibro,Precio),ListaAux),
-    combinaciones(ListaAux,R).
+busqueda_libros_semana_usados(Id,Precio,Dia,Mes,Anho,Presupuesto):-
+    usado(Id,Precio),
+    fecha(Id,DiaLibro,MesLibro,AnhoLibro),
+    (AnhoLibro==Anho,MesLibro==Mes,DiaLibro=<Dia,DiaLibro>=Dia-7),
+    Precio=<Presupuesto.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% punto3(Respuesta,Porc):-adicional(D),findall([Id,Nombre,Autor,Puntuacion,Generos,Estreno,Precio,"Usado"],
-%                     busqueda_punto_3(Id,Nombre,Autor,Puntuacion,Generos,Estreno,Precio,"Usado",D),Lista),
-%                                                   findall(X,lista_resultado_3(Lista,D,Porc,X),Respuesta).
-% hombre(juan,25).
-% hombre(jose,34).
-% hombre(pedro,50).
 
-% prueba2(Lista):-findall([X,Y],busqueda(X,Y),ListaAux),findall(X,resultado(ListaAux,X),Lista).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% S E G U N D A   R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+categoria_estrellas(Lista,Adicional,Porcentaje,Categoria,Estrellas):-
+    obtener_presupuesto(Adicional,Porcentaje,Presupuesto),
+    findall([Id,Precio],busqueda_categoria_estrellas_nuevos(Id,Precio,Categoria,Estrellas,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
 
-% busqueda(X,Y):-hombre(X,Y), Y < 70.
-
-% resultado(Lista,X):-combinaciones(Lista,X),suma(X,Respuesta),Respuesta < 70.
-
-% suma([],0).
-% suma([[_,X]|Tail],Sum):-suma(Tail,Temp),Sum is Temp+X.
-
-%%%%% S E G U N D A  R E G L A
-categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro):-
-    obtener_presupuesto(Adicional, Porcentaje, Presupuesto),
-    categoria(IdLibro,Categoria),
-    ranking(IdLibro,E),
+categoria_estrellas(Lista,Adicional,Porcentaje,Categoria,Estrellas):-
+    obtener_presupuesto(Adicional,Porcentaje,Presupuesto),
+    findall([Id,Precio],busqueda_categoria_estrellas_usados(Id,Precio,Categoria,Estrellas,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AYUDA DE LA SEGUNDA REGLA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+busqueda_categoria_estrellas_nuevos(Id,Precio,Categoria,Estrellas,Presupuesto):-
+    nuevo(Id,Precio),
+    categoria(Id,Categoria),
+    ranking(Id,E),
     E>=Estrellas,
-    usado(IdLibro,Precio),
-    Precio =< Presupuesto.
+    Precio=<Presupuesto.
 
-categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro):-
-    obtener_presupuesto(Adicional, Porcentaje, Presupuesto),
-    categoria(IdLibro,Categoria),
-    ranking(IdLibro,E),
+busqueda_categoria_estrellas_usados(Id,Precio,Categoria,Estrellas,Presupuesto):-
+    usado(Id,Precio),
+    categoria(Id,Categoria),
+    ranking(Id,E),
     E>=Estrellas,
-    not(usado(IdLibro,_)),
-    nuevo(IdLibro,Precio),
-    Precio =< Presupuesto.
+    Precio=<Presupuesto.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%% T E R C E R A  R E G L A
 %Se toma el 50% de estos libros en Python, y de esa cantidad se extrae los que estén en más de una categoría.
@@ -215,52 +242,135 @@ usados_varias_categorias(Adicional,IdLibro):-
     usado(IdLibro,Precio),
     Precio =< Presupuesto.
 
-%%%%% C U A R T A  R E G L A
-categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro):-
-    libro(IdLibro,Libro),
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% C U A R T A   R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+categoria_autor_nopalabra(Lista,Porcentaje,Categoria,Autor,Palabra):-
     sueldo(S),
     Presupuesto is S*Porcentaje,
-    usado(IdLibro,Precio),
-    Precio =< Presupuesto,
-    autor(IdLibro,Autor),
-    categoria(IdLibro,Categoria),
-    atomic_list_concat(Lista,' ',Libro),
-    not(member(Palabra,Lista)).
+    findall([Id,Precio],busq_categ_autor_nopalabra_nuevos(Id,Precio,Categoria,Autor,Palabra,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
 
-categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro):-
-    libro(IdLibro,Libro),
+categoria_autor_nopalabra(Lista,Porcentaje,Categoria,Autor,Palabra):-
     sueldo(S),
     Presupuesto is S*Porcentaje,
-    not(usado(IdLibro,_)),
-    nuevo(IdLibro,Precio),
-    Precio =< Presupuesto,
-    autor(IdLibro,Autor),
-    categoria(IdLibro,Categoria),
-    atomic_list_concat(Lista,' ',Libro),
-    not(member(Palabra,Lista)).
+    findall([Id,Precio],busq_categ_autor_nopalabra_usados(Id,Precio,Categoria,Autor,Palabra,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AYUDA DE LA CUARTA REGLA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+busq_categ_autor_nopalabra_nuevos(Id,Precio,Categoria,Autor,Palabra,Presupuesto):-
+    nuevo(Id,Precio),
+    autor(Id,Autor),
+    categoria(Id,Categoria),
+    libro(Id,Titulo),
+    atomic_list_concat(Lista,' ',Titulo),
+    not(member(Palabra,Lista)),
+    Precio=<Presupuesto.
 
-%%%%% Q U I N T A  R E G L A 
-categoria_estrellas_estemes(Categoria, Estrellas, Mes, Anho, IdLibro):-
-    libro(IdLibro,_),
-    categoria(IdLibro,Categoria),
-    fecha(IdLibro,_,MesLibro,AnhoLibro),
+busq_categ_autor_nopalabra_usados(Id,Precio,Categoria,Autor,Palabra,Presupuesto):-
+    usado(Id,Precio),
+    autor(Id,Autor),
+    categoria(Id,Categoria),
+    libro(Id,Titulo),
+    atomic_list_concat(Lista,' ',Titulo),
+    not(member(Palabra,Lista)),
+    Precio=<Presupuesto.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Q U I N T A  R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+categoria_estrellas_estemes(Lista,Categoria,Estrellas,Mes,Anho):-
+    sueldo(S),
+    Presupuesto is S,
+    findall([Id,Precio],busq_categ_estrellas_estemes_nuevos(Id,Precio,Categoria,Estrellas,Mes,Anho,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+
+categoria_estrellas_estemes(Lista,Categoria,Estrellas,Mes,Anho):-
+    sueldo(S),
+    Presupuesto is S,
+    findall([Id,Precio],busq_categ_estrellas_estemes_usados(Id,Precio,Categoria,Estrellas,Mes,Anho,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AYUDA DE LA QUINTA REGLA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+busq_categ_estrellas_estemes_nuevos(Id,Precio,Categoria,Estrellas,Mes,Anho,Presupuesto):-
+    nuevo(Id,Precio),
+    categoria(Id,Categoria),
+    fecha(Id,_,MesLibro,AnhoLibro),
     MesLibro == Mes,AnhoLibro == Anho,
-    ranking(IdLibro,E),
-    E =:= Estrellas.
+    ranking(Id,E),
+    E =:= Estrellas,
+    Precio=<Presupuesto.
 
+busq_categ_estrellas_estemes_usados(Id,Precio,Categoria,Estrellas,Mes,Anho,Presupuesto):-
+    usado(Id,Precio),
+    categoria(Id,Categoria),
+    fecha(Id,_,MesLibro,AnhoLibro),
+    MesLibro == Mes,AnhoLibro == Anho,
+    ranking(Id,E),
+    E =:= Estrellas,
+    Precio=<Presupuesto.
 
-%%%%% S E X T A  R E G L A 
-libros_periodo_tiempo(AnhoInicial,AnhoFinal,IdLibro):-
-    libro(IdLibro,_),
-    fecha(IdLibro,_,_,AnhoLibro),
-    AnhoInicial =< AnhoLibro, AnhoFinal >= AnhoLibro.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% S E X T A  R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+libros_periodo_tiempo(Lista,Autor,Estrellas,AnhoInicial,AnhoFinal):-
+    sueldo(S),
+    Presupuesto is S,
+    findall([Id,Precio],busq_periodo_tiempo_nuevos(Id,Precio,Autor,Estrellas,AnhoInicial,AnhoFinal,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
 
-%%%%% S E P T I M A  R E G L A 
-por_casa_editora(CasaEditora,IdLibro):-
-    libro(IdLibro,_),
-    casa_editora(IdLibro,CasaEditora).
+libros_periodo_tiempo(Lista,Autor,Estrellas,AnhoInicial,AnhoFinal):-
+    sueldo(S),
+    Presupuesto is S,
+    findall([Id,Precio],busq_periodo_tiempo_usados(Id,Precio,Autor,Estrellas,AnhoInicial,AnhoFinal,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AYUDA DE LA SEXTA REGLA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+busq_periodo_tiempo_nuevos(Id,Precio,Autor,Estrellas,AnhoInicial,AnhoFinal,Presupuesto):-
+    nuevo(Id,Precio),
+    autor(Id,Autor),
+    fecha(Id,_,_,AnhoLibro),
+    AnhoInicial =< AnhoLibro, AnhoFinal >= AnhoLibro,
+    ranking(Id,E),
+    E >= Estrellas,
+    Precio=<Presupuesto.
+
+busq_periodo_tiempo_usados(Id,Precio,Autor,Estrellas,AnhoInicial,AnhoFinal,Presupuesto):-
+    usado(Id,Precio),
+    autor(Id,Autor),
+    fecha(Id,_,_,AnhoLibro),
+    AnhoInicial =< AnhoLibro, AnhoFinal >= AnhoLibro,
+    ranking(Id,E),
+    E >= Estrellas,
+    Precio=<Presupuesto.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% S E P T I M A  R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+libros_casa_editora(Lista,CasaEditora,Estrellas,Porcentaje):-
+    sueldo(S),
+    Presupuesto is S*Porcentaje,
+    findall([Id,Precio],busq_casa_editora(Id,Precio,CasaEditora,Estrellas,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AYUDA DE LA SEPTIMA REGLA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+busq_casa_editora(Id,Precio,CasaEditora,Estrellas,Presupuesto):-
+    nuevo(Id,Precio),
+    casa_editora(Id,CasaEditora),
+    ranking(Id,E),
+    E >= Estrellas,
+    Precio=<Presupuesto.
   
-%%%%% O C T A V A  R E G L A 
-por_autor(Autor,IdLibro):-
-    libro(IdLibro,_),
-    autor(IdLibro,Autor).
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% O C T A V A  R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+libros_categoria_material(Lista,Categoria,Material,Porcentaje):-
+    sueldo(S),
+    Presupuesto is S*Porcentaje,
+    findall([Id,Precio],busq_categ_material(Id,Precio,Categoria,Material,Presupuesto),ListaAux),
+    findall(Combinaciones,obtener_combinaciones(Presupuesto,ListaAux,Combinaciones),Lista).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% REGLAS AYUDA DE LA OCTAVA REGLA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+busq_categ_material(Id,Precio,Categoria,Material,Presupuesto):-
+    nuevo(Id,Precio),
+    categoria(Id,Categoria),
+    material(Id,Material),
+    Precio=<Presupuesto. 
+
