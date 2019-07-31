@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import scrolledtext
 
 from tkinter.ttk import *
-#Prolog instance created and opened file
+# Prolog instance created and opened file
 prolog = Prolog()
 prolog.consult("reglas_test.pl")
 

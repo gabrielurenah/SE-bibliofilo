@@ -1,8 +1,7 @@
 :-dynamic sueldo/1.
 sueldo(60000).
-cambiar_sueldo(X):-(abolish(sueldo/1),assert(sueldo(X))),guardar_sueldo.
 
-guardar_sueldo:-tell('sueldo.txt'), listing(sueldo), told.
+cambiar_sueldo(X):-(abolish(sueldo/1),assert(sueldo(X))).
 
 libro(1,'paint mojo - a mixed-media workshop: creative layering techniques for personal expression').
 libro(2,'yeah! yeah! yeah!: the story of pop music from bill haley to beyonce').
@@ -144,25 +143,51 @@ obtener_presupuesto(Adicional,Porcentaje,Total):-
     obtener_porciento(Porcentaje,Resultado),
     Total is Adicional+Resultado.
 
+combinaciones([H|_], [H]).
+combinaciones([_|T], C) :- combinaciones(T, C).
+combinaciones([H|T], [H|C]) :- combinaciones(T, C).
+
 obtener_porciento(Porcentaje,Resultado):-sueldo(Sueldo),Resultado is Sueldo*Porcentaje.
 
+resultado(Lista,X):-combinaciones(Lista,X).
+
 %%%%% P R I M E R A   R E G L A
-libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
+libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro, R):-
     obtener_presupuesto(Adicional, Presupuesto),
     libro(IdLibro,_),
     fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
     (AnhoLibro==Anho,MesLibro==Mes,DiaLibro=<Dia,DiaLibro>=Dia-7),
     usado(IdLibro,Precio),
-    Precio =< Presupuesto.
+    Precio =< Presupuesto,
+    findall([IdLibro,Precio], nuevo(IdLibro,Precio), ListaAux),
+    findall(X,combinaciones(ListaAux,X), R).
 
-libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro):-
+libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro, R):-
     obtener_presupuesto(Adicional, Presupuesto),
     libro(IdLibro,_),
-    fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
-    (AnhoLibro==Anho,MesLibro==Mes,DiaLibro<Dia),
-    not(usado(IdLibro,_)),
+    % fecha(IdLibro,DiaLibro,MesLibro,AnhoLibro),
+    % (AnhoLibro==Anho,MesLibro==Mes,DiaLibro<Dia),
+    % not(usado(IdLibro,_)),
     nuevo(IdLibro,Precio),
-    Precio =< Presupuesto.
+    Precio =< Presupuesto,
+    findall([IdLibro,Precio],nuevo(IdLibro,Precio),ListaAux),
+    combinaciones(ListaAux,R).
+
+% punto3(Respuesta,Porc):-adicional(D),findall([Id,Nombre,Autor,Puntuacion,Generos,Estreno,Precio,"Usado"],
+%                     busqueda_punto_3(Id,Nombre,Autor,Puntuacion,Generos,Estreno,Precio,"Usado",D),Lista),
+%                                                   findall(X,lista_resultado_3(Lista,D,Porc,X),Respuesta).
+% hombre(juan,25).
+% hombre(jose,34).
+% hombre(pedro,50).
+
+% prueba2(Lista):-findall([X,Y],busqueda(X,Y),ListaAux),findall(X,resultado(ListaAux,X),Lista).
+
+% busqueda(X,Y):-hombre(X,Y), Y < 70.
+
+% resultado(Lista,X):-combinaciones(Lista,X),suma(X,Respuesta),Respuesta < 70.
+
+% suma([],0).
+% suma([[_,X]|Tail],Sum):-suma(Tail,Temp),Sum is Temp+X.
 
 %%%%% S E G U N D A  R E G L A
 categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro):-
@@ -222,3 +247,20 @@ categoria_estrellas_estemes(Categoria, Estrellas, Mes, Anho, IdLibro):-
     MesLibro == Mes,AnhoLibro == Anho,
     ranking(IdLibro,E),
     E =:= Estrellas.
+
+
+%%%%% S E X T A  R E G L A 
+libros_periodo_tiempo(AnhoInicial,AnhoFinal,IdLibro):-
+    libro(IdLibro,_),
+    fecha(IdLibro,_,_,AnhoLibro),
+    AnhoInicial =< AnhoLibro, AnhoFinal >= AnhoLibro.
+
+%%%%% S E P T I M A  R E G L A 
+por_casa_editora(CasaEditora,IdLibro):-
+    libro(IdLibro,_),
+    casa_editora(IdLibro,CasaEditora).
+  
+%%%%% O C T A V A  R E G L A 
+por_autor(Autor,IdLibro):-
+    libro(IdLibro,_),
+    autor(IdLibro,Autor).
