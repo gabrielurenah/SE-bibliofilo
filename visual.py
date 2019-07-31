@@ -335,7 +335,7 @@ def get_book_info(id, price, txt):
     month = ""
     year = ""
     state = ""
-    info = list(prolog.query("informacion_libro(" + str(id) + ',' + str(price) + ",Nombre,Autor,Categoria,Imagen,Dia,Mes,Anho,Flag)"))
+    info = list(prolog.query("informacion_libro(" + str(id) + ',' + str(price) + ",Nombre,Autor,Categoria,Dia,Mes,Anho,Flag)"))
     for result in info:
         for key in result.keys():
             print("Libro",id,"Key ",key)
@@ -345,8 +345,6 @@ def get_book_info(id, price, txt):
                 author = result[key]
             elif (key == 'Categoria'):
                 category = result[key]
-            elif (key == 'Imagen'):
-                img= result[key]
             elif (key == 'Dia'):
                 day = result[key]
             elif (key == 'Mes'):
