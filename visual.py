@@ -10,8 +10,17 @@ prolog.consult("reglas_test.pl")
 date = date.today()
 
 
+def changeSalary(sueldo):
+    print(list(prolog.query("sueldo(X)")))
+    change = list(prolog.query("cambiar_sueldo("+sueldo.get()+")"))
+    save = list(prolog.query("guardar_sueldo"))
+    print(list(prolog.query("sueldo(X)")))
+
+
+
 
 def create_window():
+    prolog.consult("a_db.txt")
     window = Tk()
     window.title("El presupuesto del bibliófilo")
     window.geometry("720x480")
@@ -24,6 +33,16 @@ def create_window():
     lbl = Label(window, text="El presupuesto del bibliófilo", font=("Arial Bold", 15))
     lbl.grid(column=0, row=0)
 
+    labelFrame = ttk.LabelFrame(window)
+    labelFrame.grid(column=0, row=1)
+    lbl_sueldo = Label(labelFrame, text="Sueldo Actual", anchor='nw', width=50)
+    lbl_sueldo.grid(column=0, row=1)
+    sueldo = Entry(labelFrame)
+    sueldo.grid(column=0, row=1)
+    btn_sueldo = Button(labelFrame, text="Cambiar", command= lambda: changeSalary(sueldo))
+    #command=lambda: clicked1st("Lista",adicional, date.day, date.month, date.year, labelFrame)
+    btn_sueldo.grid(column=0, row=2)
+
     #PRIMER TAB
     tab1 = ttk.Frame(tabControl)
     tabControl.add(tab1, text="Menos de 7 dias")
@@ -35,9 +54,9 @@ def create_window():
     tabContent2(tab2)
 
     #TERCER TAB
-    tab3 = ttk.Frame(tabControl)
-    tabControl.add(tab3, text="Usado varias categorias")
-    tabContent3(tab3)
+    # tab3 = ttk.Frame(tabControl)
+    # tabControl.add(tab3, text="Usado varias categorias")
+    # tabContent3(tab3)
 
     #CUARTO TAB
     tab4 = ttk.Frame(tabControl)
@@ -144,19 +163,19 @@ def tabContent2(tab2):
                  command=lambda: clicked2nd("Lista",adicional, porciento_sueldo, categoria, estrellas, labelFrame))
     btn.grid(column=1, row=13)
 
-def tabContent3(tab3):
-    labelFrame = ttk.LabelFrame(tab3, text="Libros usados de diferentes categorias")
-    labelFrame.grid(column=0, row=5)
-
-    label_adicional = Label(labelFrame, text="Sueldo Adicional", anchor='e', width=30)
-    label_adicional.grid(column=0, row=3, pady=10)
-    adicional = Entry(labelFrame)
-    adicional.grid(column=1, row=3)
-
-    label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
-    label_id_libro.grid(column=0, row=5, pady=10)
-    id_libro = Entry(labelFrame)
-    id_libro.grid(column=1, row=5)
+# def tabContent3(tab3):
+#     labelFrame = ttk.LabelFrame(tab3, text="Libros usados de diferentes categorias")
+#     labelFrame.grid(column=0, row=5)
+#
+#     label_adicional = Label(labelFrame, text="Sueldo Adicional", anchor='e', width=30)
+#     label_adicional.grid(column=0, row=3, pady=10)
+#     adicional = Entry(labelFrame)
+#     adicional.grid(column=1, row=3)
+#
+#     label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
+#     label_id_libro.grid(column=0, row=5, pady=10)
+#     id_libro = Entry(labelFrame)
+#     id_libro.grid(column=1, row=5)
 
 def tabContent4(tab4):
     labelFrame = ttk.LabelFrame(tab4, text="Libros de economia sin palabra crisis")
@@ -259,7 +278,7 @@ def tabContent6(tab6):
 
 
 def tabContent7(tab7):
-    #por_casa_editora(CasaEditora,IdLibro)
+    #libros_casa_editora(Lista,CasaEditora,Estrellas,Porcentaje)
     labelFrame = ttk.LabelFrame(tab7, text="Libros por casa editora")
     labelFrame.grid(column=0, row=5)
 
@@ -268,19 +287,24 @@ def tabContent7(tab7):
     casaEditora = Entry(labelFrame)
     casaEditora.grid(column=1, row=3)
 
+    label_estrellas = Label(labelFrame, text="Estrellas", anchor='e', width=30)
+    label_estrellas.grid(column=0, row=5, pady=10)
+    estrellas = Entry(labelFrame)
+    estrellas.grid(column=1, row=5)
+
+    label_porciento_sueldo = Label(labelFrame, text="Porciento Sueldo", anchor='e', width=30)
+    label_porciento_sueldo.grid(column=0, row=7, pady=10)
+    porciento_sueldo = Entry(labelFrame)
+    porciento_sueldo.grid(column=1, row=7)
+
     btn = Button(labelFrame, text="Buscar",
-                 command=lambda: clicked7th("Lista", casaEditora, labelFrame))
+                 command=lambda: clicked7th("Lista", casaEditora, estrellas,porciento_sueldo,labelFrame))
     btn.grid(column=1, row=13)
 
 def tabContent8(tab8):
     ##material_autor_categoria(Autor,Categoria,Material,IdLibro)
     labelFrame = ttk.LabelFrame(tab8, text="Libros por material")
     labelFrame.grid(column=0, row=5)
-
-    label_autor = Label(labelFrame, text="Autor", anchor='e', width=30)
-    label_autor.grid(column=0, row=5, pady=10)
-    autor = Entry(labelFrame)
-    autor.grid(column=1, row=5)
 
     label_categoria = Label(labelFrame, text="Categoria", anchor='e', width=30)
     label_categoria.grid(column=0, row=7, pady=10)
@@ -292,8 +316,13 @@ def tabContent8(tab8):
     material = Entry(labelFrame)
     material.grid(column=1, row=9)
 
+    label_porciento_sueldo = Label(labelFrame, text="Porciento Sueldo", anchor='e', width=30)
+    label_porciento_sueldo.grid(column=0, row=11, pady=10)
+    porciento_sueldo = Entry(labelFrame)
+    porciento_sueldo.grid(column=1, row=11)
+
     btn = Button(labelFrame, text="Buscar",
-                 command=lambda: clicked8th("Lista",autor,categoria,material, labelFrame))
+                 command=lambda: clicked8th("Lista",categoria,material, porciento_sueldo,labelFrame))
     btn.grid(column=1, row=13)
 
 
@@ -347,7 +376,7 @@ def clicked1st(lista, adicional, dia, mes, anho, window):
         fact = "libros_menosde_siete_dias("\
             + lista + "," + \
             adicional.get() + \
-            "," + str(18) + \
+            "," + str(dia) + \
             "," + str(mes) + \
             "," + str(anho) + \
             ")"
@@ -373,10 +402,6 @@ def clicked1st(lista, adicional, dia, mes, anho, window):
                                 for array in arrays:
                                     get_book_info(array[0], array[1], txt)
                                 txt.insert(INSERT, "--------------------------------\n")
-
-
-                # for key in result.keys():
-                    # get_book_info(result[key], txt)
         else:
             txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
@@ -385,7 +410,7 @@ def clicked2nd(lista,adicional, porciento_sueldo, categoria, estrellas, window):
             + lista + "," + \
              adicional.get() + \
             "," + porciento_sueldo.get() + \
-            "," + categoria.get() + \
+            "," + "'" + categoria.get() + "'" + \
             "," + estrellas.get() + \
             ")"
 
@@ -395,11 +420,20 @@ def clicked2nd(lista,adicional, porciento_sueldo, categoria, estrellas, window):
     txt = scrolledtext.ScrolledText(window, width=40, height=10)
     txt.grid(column=1, row=15)
 
-    if(selected_option):
+    if selected_option:
         for result in selected_option:
-            for key in result.keys():
-                get_book_info(result[key], txt)
-            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+            for item in result:
+                if 'Lista' in result:
+                    for arrays in result['Lista']:
+                        if len(arrays) == 1:
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                        else:
+                            txt.insert(INSERT, "\nCombinacion de Libros Disponibles:")
+                            txt.insert(INSERT, "\n--------------------------------")
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                            txt.insert(INSERT, "--------------------------------\n")
     else:
         txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
@@ -407,9 +441,9 @@ def clicked4th(lista,porciento_sueldo, categoria, autor, palabra, window):
     fact = "categoria_autor_nopalabra(" \
             + lista +"," + \
              porciento_sueldo.get() + \
-            "," + categoria.get() + \
-            "," + autor.get() + \
-            "," + palabra.get() + \
+            "," + "'"+categoria.get()+"'"+ \
+            "," + "'"+autor.get()+"'" + \
+            "," + "'"+palabra.get()+"'" + \
             ")"
 
 
@@ -419,18 +453,27 @@ def clicked4th(lista,porciento_sueldo, categoria, autor, palabra, window):
 
     txt = scrolledtext.ScrolledText(window, width=40, height=10)
     txt.grid(column=1, row=15)
-    if(selected_option):
+    if selected_option:
         for result in selected_option:
-            for key in result.keys():
-                get_book_info(result[key],txt)
-            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+            for item in result:
+                if 'Lista' in result:
+                    for arrays in result['Lista']:
+                        if len(arrays) == 1:
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                        else:
+                            txt.insert(INSERT, "\nCombinacion de Libros Disponibles:")
+                            txt.insert(INSERT, "\n--------------------------------")
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                            txt.insert(INSERT, "--------------------------------\n")
     else:
         txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
-def clicked5th(list,categoria, estrellas, mes, anho, window):
+def clicked5th(lista,categoria, estrellas, mes, anho, window):
     fact = "categoria_estrellas_estemes(" \
-            + list + "," + \
-            categoria.get() + \
+            + lista + "," + \
+            "'"+categoria.get()+"'" + \
             "," + estrellas.get() + \
             "," + str(mes) + \
             "," + str(anho) + \
@@ -441,11 +484,20 @@ def clicked5th(list,categoria, estrellas, mes, anho, window):
 
     txt = scrolledtext.ScrolledText(window, width=40, height=10)
     txt.grid(column=1, row=15)
-    if(selected_option):
+    if selected_option:
         for result in selected_option:
-            for key in result.keys():
-                get_book_info(result[key], txt)
-            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+            for item in result:
+                if 'Lista' in result:
+                    for arrays in result['Lista']:
+                        if len(arrays) == 1:
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                        else:
+                            txt.insert(INSERT, "\nCombinacion de Libros Disponibles:")
+                            txt.insert(INSERT, "\n--------------------------------")
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                            txt.insert(INSERT, "--------------------------------\n")
     else:
         txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
@@ -453,7 +505,7 @@ def clicked5th(list,categoria, estrellas, mes, anho, window):
 def clicked6th(lista, autor, estrellas, anhoI, anhoF, labelFrame):
     fact = "libros_periodo_tiempo(" \
             + lista + "," + \
-            autor.get() + \
+            "'"+autor.get()+"'" + \
             "," + estrellas.get() + \
             "," + anhoI.get() + \
             "," + anhoF.get() + \
@@ -465,42 +517,65 @@ def clicked6th(lista, autor, estrellas, anhoI, anhoF, labelFrame):
 
     txt = scrolledtext.ScrolledText(labelFrame, width=40, height=10)
     txt.grid(column=1, row=15)
-    if (selected_option):
+    if selected_option:
         for result in selected_option:
-            for key in result.keys():
-                get_book_info(result[key], txt)
-            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+            for item in result:
+                if 'Lista' in result:
+                    for arrays in result['Lista']:
+                        if len(arrays) == 1:
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                        else:
+                            txt.insert(INSERT, "\nCombinacion de Libros Disponibles:")
+                            txt.insert(INSERT, "\n--------------------------------")
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                            txt.insert(INSERT, "--------------------------------\n")
     else:
         txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 
 
-def clicked7th(lista,casaEditora, labelFrame):
-    fact = "por_casa_editora(" \
-           + lista + "," + \
-           casaEditora.get() + \
-            ")"
-
-    print(fact)
-    selected_option = list(prolog.query(fact))
-    print(selected_option)
-
-    txt = scrolledtext.ScrolledText(labelFrame, width=40, height=10)
-    txt.grid(column=1, row=15)
-    if (selected_option):
-        for result in selected_option:
-            for key in result.keys():
-                get_book_info(result[key], txt)
-            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
-    else:
-        txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
-
-def clicked8th(lista, autor,categoria, material, labelFrame):
-
-    fact = "material_autor_categoria(" \
+def clicked7th(lista,casaEditora,estrellas,porciento_salario, labelFrame):
+    # libros_casa_editora(Lista, CasaEditora, Estrellas, Porcentaje)
+    fact = "libros_casa_editora(" \
             + lista + "," + \
-             autor.get() + \
-            "," + categoria.get() + \
-            "," + material.get() + \
+            "'"+casaEditora.get()+"'" + \
+            "," + estrellas.get() + \
+            "," + porciento_salario.get() + \
+            ")"
+
+
+
+    print(fact)
+    selected_option = list(prolog.query(fact))
+    print(selected_option)
+
+    txt = scrolledtext.ScrolledText(labelFrame, width=40, height=10)
+    txt.grid(column=1, row=15)
+    if selected_option:
+        for result in selected_option:
+            for item in result:
+                if 'Lista' in result:
+                    for arrays in result['Lista']:
+                        if len(arrays) == 1:
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                        else:
+                            txt.insert(INSERT, "\nCombinacion de Libros Disponibles:")
+                            txt.insert(INSERT, "\n--------------------------------")
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                            txt.insert(INSERT, "--------------------------------\n")
+    else:
+        txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
+
+def clicked8th(lista,categoria, material,porcentaje, labelFrame):
+
+    fact = "libros_categoria_material(" \
+            + lista + \
+            "," + "'"+categoria.get()+"'" + \
+            "," + "'"+material.get()+"'" + \
+            "," + porcentaje.get() + \
             ")"
 
     print(fact)
@@ -509,11 +584,20 @@ def clicked8th(lista, autor,categoria, material, labelFrame):
 
     txt = scrolledtext.ScrolledText(labelFrame, width=40, height=10)
     txt.grid(column=1, row=15)
-    if (selected_option):
+    if selected_option:
         for result in selected_option:
-            for key in result.keys():
-                get_book_info(result[key], txt)
-            # txt.insert(INSERT, (key + ' : ' + str(result[key]) + "\n"))
+            for item in result:
+                if 'Lista' in result:
+                    for arrays in result['Lista']:
+                        if len(arrays) == 1:
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                        else:
+                            txt.insert(INSERT, "\nCombinacion de Libros Disponibles:")
+                            txt.insert(INSERT, "\n--------------------------------")
+                            for array in arrays:
+                                get_book_info(array[0], array[1], txt)
+                            txt.insert(INSERT, "--------------------------------\n")
     else:
         txt.insert(INSERT, "No hay libros disponibles para este requerimiento.")
 

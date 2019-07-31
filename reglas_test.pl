@@ -3,6 +3,8 @@ sueldo(60000).
 
 cambiar_sueldo(X):-(abolish(sueldo/1),assert(sueldo(X))).
 
+guardar_sueldo:-tell('a_db.txt'), listing(sueldo), told.
+
 autor('0439708184','J.K. Rowling').
 autor('0525633758','Michelle Obama').
 autor('1473619556','Melissa Hartwig').
