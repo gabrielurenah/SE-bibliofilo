@@ -222,3 +222,13 @@ categoria_estrellas_estemes(Categoria, Estrellas, Mes, Anho, IdLibro):-
     MesLibro == Mes,AnhoLibro == Anho,
     ranking(IdLibro,E),
     E =:= Estrellas.
+
+
+%%%%% EXTRE NON NEEDED BUT NEEDED RULE
+
+informacion_libro(Id, Nombre, Autor, Categoria, Imagen, Dia, Mes, Anho) :-
+    libro(Id, Nombre),
+    autor(Id, Autor),
+    categoria(Id, Categoria),
+    imagen(Id, Imagen),
+    fecha(Id, Dia, Mes, Anho).
