@@ -369,9 +369,10 @@ def clicked1st(lista, adicional, dia, mes, anho, window):
                                     get_book_info(array[0], array[1], txt)
                             else:
                                 txt.insert(INSERT, "\nCombinacion de Libros Disponibles:")
+                                txt.insert(INSERT, "\n--------------------------------")
                                 for array in arrays:
                                     get_book_info(array[0], array[1], txt)
-                                txt.insert(INSERT, "\n--------------------------------\n:")
+                                txt.insert(INSERT, "--------------------------------\n")
 
 
                 # for key in result.keys():
