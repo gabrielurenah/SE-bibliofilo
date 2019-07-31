@@ -10,6 +10,8 @@ prolog.consult("reglas_test.pl")
 
 
 
+
+
 def create_window():
     window = Tk()
     window.title("El presupuesto del bibliófilo")
@@ -26,6 +28,54 @@ def create_window():
     #PRIMER TAB
     tab1 = ttk.Frame(tabControl)
     tabControl.add(tab1, text="Menos de 7 dias")
+    tabContent1(tab1)
+
+    #SEGUNDO TAB
+    tab2 = ttk.Frame(tabControl)
+    tabControl.add(tab2, text="Categoria estrellas")
+    tabContent2(tab2)
+
+    #TERCER TAB
+    tab3 = ttk.Frame(tabControl)
+    tabControl.add(tab3, text="Usado varias categorias")
+    tabContent3(tab3)
+
+    #CUARTO TAB
+    tab4 = ttk.Frame(tabControl)
+    tabControl.add(tab4, text="Autor no palabra")
+    tabContent4(tab4)
+
+    #QUINTO TAB
+    tab5 = ttk.Frame(tabControl)
+    tabControl.add(tab5, text="Estellas este mes")
+    tabContent5(tab5)
+
+
+    tab6 = ttk.Frame(tabControl)
+    tabControl.add(tab6, text="Extra 1")
+
+    tab7 = ttk.Frame(tabControl)
+    tabControl.add(tab7, text="Extra 2")
+
+    tab8 = ttk.Frame(tabControl)
+    tabControl.add(tab8, text="Extra 3")
+
+    tabControl.grid(column=0, row=3)
+
+    # #Cbx
+    # combo = Combobox(window, state="readonly")
+    # combo['values'] = ("Select", "libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro)"
+    #                    ,"categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro)"
+    #                    ,"usados_varias_categorias(Adicional,IdLibro)"
+    #                    ,"categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro)"
+    #                    ,"categoria_estrellas_estemes(Categoria, Estrellas, Mes, Anho, IdLibro)")
+    # combo.current(0)
+    # combo.grid(column=1,row=2)
+    # combo.bind('<<ComboboxSelected>>', lambda event: on_value_change(combo, window))
+
+    window.mainloop()
+
+def tabContent1(tab1):
     labelFrame = ttk.LabelFrame(tab1, text="Libros con menos de 7 dias")
     labelFrame.grid(column=0, row=5)
 
@@ -58,11 +108,7 @@ def create_window():
     btn.grid(column=1, row=13)
 
 
-
-    #SEGUNDO TAB
-    tab2 = ttk.Frame(tabControl)
-    tabControl.add(tab2, text="Categoria estrellas")
-
+def tabContent2(tab2):
     labelFrame = ttk.LabelFrame(tab2, text="Libros de categorias con 4 o mas estrellas")
     labelFrame.grid(column=0, row=5)
 
@@ -95,10 +141,7 @@ def create_window():
                  command=lambda: clicked2nd(adicional, porciento_sueldo, categoria, estrellas, id_libro, labelFrame))
     btn.grid(column=1, row=13)
 
-    #TERCER TAB
-    tab3 = ttk.Frame(tabControl)
-    tabControl.add(tab3, text="Usado varias categorias")
-
+def tabContent3(tab3):
     labelFrame = ttk.LabelFrame(tab3, text="Libros usados de diferentes categorias")
     labelFrame.grid(column=0, row=5)
 
@@ -112,9 +155,7 @@ def create_window():
     id_libro = Entry(labelFrame)
     id_libro.grid(column=1, row=5)
 
-    tab4 = ttk.Frame(tabControl)
-    tabControl.add(tab4, text="Autor no palabra")
-
+def tabContent4(tab4):
     labelFrame = ttk.LabelFrame(tab4, text="Libros de economia sin palabra crisis")
     labelFrame.grid(column=0, row=5)
 
@@ -148,10 +189,7 @@ def create_window():
                  command=lambda: clicked4th(porciento_sueldo, categoria, autor, palabra, id_libro, labelFrame))
     btn.grid(column=1, row=13)
 
-
-    tab5 = ttk.Frame(tabControl)
-    tabControl.add(tab5, text="Estellas este mes")
-
+def tabContent5(tab5):
     labelFrame = ttk.LabelFrame(tab5, text="Libros viajes 5 estrellas")
     labelFrame.grid(column=0, row=5)
 
@@ -184,30 +222,6 @@ def create_window():
                  command=lambda: clicked5th(categoria, estrellas, mes, anho, id_libro, labelFrame))
     btn.grid(column=1, row=13)
 
-
-    tab6 = ttk.Frame(tabControl)
-    tabControl.add(tab6, text="Extra 1")
-
-    tab7 = ttk.Frame(tabControl)
-    tabControl.add(tab7, text="Extra 2")
-
-    tab8 = ttk.Frame(tabControl)
-    tabControl.add(tab8, text="Extra 3")
-
-    tabControl.grid(column=0, row=3)
-
-    # #Cbx
-    # combo = Combobox(window, state="readonly")
-    # combo['values'] = ("Select", "libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro)"
-    #                    ,"categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro)"
-    #                    ,"usados_varias_categorias(Adicional,IdLibro)"
-    #                    ,"categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro)"
-    #                    ,"categoria_estrellas_estemes(Categoria, Estrellas, Mes, Anho, IdLibro)")
-    # combo.current(0)
-    # combo.grid(column=1,row=2)
-    # combo.bind('<<ComboboxSelected>>', lambda event: on_value_change(combo, window))
-
-    window.mainloop()
 
 def get_book_info(id):
     name = ""
