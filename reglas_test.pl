@@ -5,147 +5,147 @@ cambiar_sueldo(X):-(abolish(sueldo/1),assert(sueldo(X))).
 
 guardar_sueldo:-tell('a_db.txt'), listing(sueldo), told.
 
-autor('0439708184','J.K. Rowling').
-autor('0525633758','Michelle Obama').
-autor('1473619556','Melissa Hartwig').
-autor('1503900916','Keith Houghton').
-autor('1542040094','van der Zijl').
-autor('1542041643','Vivian Barz').
-autor('1542091330','Claire McGowan').
-autor('1542092809', 'Julianne MacLean').
-autor('1542093082', 'Kerry Lonsdale').
-autor('1632150786','Brian K Vaughan').
-autor('1984827618','Delia Owens').
-autor('B003JFJHTS','Margaret Atwood ').
-autor('B06Y55SB4X','Marc Cameron').
-autor('B076CJX3YN','Maddie Dawson').
-autor('B07G8NTJVP','Lisa Gray').
+autor(1,'J.K. Rowling').
+autor(2,'Michelle Obama').
+autor(3,'Melissa Hartwig').
+autor(4,'Keith Houghton').
+autor(5,'van der Zijl').
+autor(6,'Vivian Barz').
+autor(7,'Claire McGowan').
+autor(8, 'Julianne MacLean').
+autor(9, 'Kerry Lonsdale').
+autor(10,'Brian K Vaughan').
+autor(11,'Delia Owens').
+autor(12,'Margaret Atwood ').
+autor(13,'Marc Cameron').
+autor(14,'Maddie Dawson').
+autor(15,'Lisa Gray').
 
-casa_editora('0439708184','Pottermore Publishing').
-casa_editora('0525633758',' Random House Large Print').
-casa_editora('1473619556','Yellow Kite').
-casa_editora('1503900916','Thomas & Mercer').
-casa_editora('1542040094','Amazon Crossing').
-casa_editora('1542041643','Thomas & Mercer').
-casa_editora('1542091330', 'Thomas & Mercer').
-casa_editora('1542092809', 'Lake Union Publishing').
-casa_editora('1542093082', 'Lake Union Publishing').
-casa_editora('1632150786','Image Comics').
-casa_editora('1984827618','Random House Large Print').
-casa_editora('B003JFJHTS','Houghton Mifflin Harcourt').
-casa_editora('B06Y55SB4X','G.P. Putnams Sons').
-casa_editora('B076CJX3YN','Lake Union Publishing').
-casa_editora('B07G8NTJVP','Thomas & Mercer').
+casa_editora(1,'Pottermore Publishing').
+casa_editora(2,' Random House Large Print').
+casa_editora(3,'Yellow Kite').
+casa_editora(4,'Thomas & Mercer').
+casa_editora(5,'Amazon Crossing').
+casa_editora(6,'Thomas & Mercer').
+casa_editora(7, 'Thomas & Mercer').
+casa_editora(8, 'Lake Union Publishing').
+casa_editora(9, 'Lake Union Publishing').
+casa_editora(10,'Image Comics').
+casa_editora(11,'Random House Large Print').
+casa_editora(12,'Houghton Mifflin Harcourt').
+casa_editora(13,'G.P. Putnams Sons').
+casa_editora(14,'Lake Union Publishing').
+casa_editora(15,'Thomas & Mercer').
 
-categoria('0439708184','Fantasia').
-categoria('0525633758','Biografia').
-categoria('1473619556','Cocina').
-categoria('1503900916','Suspenso').
-categoria('1542040094','Biografia').
-categoria('1542041643','Misterio').
-categoria('1542091330', 'Ficcion').
-categoria('1542092809', 'Ficcion').
-categoria('1542093082', 'Ficcion').
-categoria('1632150786','Ficcion').
-categoria('1984827618','Ficcion').
-categoria('B003JFJHTS','Ficcion').
-categoria('B06Y55SB4X','Suspenso').
-categoria('B076CJX3YN','Romance').
-categoria('B07G8NTJVP','Misterio').
+categoria(1,'Fantasia').
+categoria(2,'Biografia').
+categoria(3,'Cocina').
+categoria(4,'Suspenso').
+categoria(5,'Biografia').
+categoria(6,'Misterio').
+categoria(7, 'Ficcion').
+categoria(8, 'Ficcion').
+categoria(9, 'Ficcion').
+categoria(10,'Ficcion').
+categoria(11,'Ficcion').
+categoria(12,'Ficcion').
+categoria(13,'Suspenso').
+categoria(14,'Romance').
+categoria(15,'Misterio').
 
 % Fecha ID, dia, mes, año
-fecha('0439708184',8,12,2015).
-fecha('0525633758',18,11,2018).
-fecha('1473619556',1,1,2015).
-fecha('1503900916',19,4,2019).
-fecha('1542040094',1,8,2019).
-fecha('1542041643',1,9,2019).
-fecha('1542091330',1,9,2019).
-fecha('1542092809', 1,9,2019).
-fecha('1542093082',9,7,2019).
-fecha('1632150786',25,11,2014).
-fecha('1984827618',14,8,2018).
-fecha('B003JFJHTS',17,2,1986).
-fecha('B06Y55SB4X',28,11,2017).
-fecha('B076CJX3YN',1,6,2019).
-fecha('B07G8NTJVP',1,6,2019).
+fecha(1,8,12,2015).
+fecha(2,18,11,2018).
+fecha(3,1,1,2015).
+fecha(4,19,4,2019).
+fecha(5,1,8,2019).
+fecha(6,30,7,2019).
+fecha(7,30,7,2019).
+fecha(8, 1,9,2019).
+fecha(9,9,7,2019).
+fecha(10,25,11,2014).
+fecha(11,14,8,2018).
+fecha(12,17,2,1986).
+fecha(13,28,11,2017).
+fecha(14,1,6,2019).
+fecha(15,1,6,2019).
 
-libro('0439708184','Harry Potter and the Sorcerers Stone').
-libro('0525633758','Becoming').
-libro('1473619556','The Whole 30: The Official 30-Day Guide to Total Health and Food Freedom').
-libro('1503900916','Dont Even Breathe').
-libro('1542040094','The Boy Between Worlds: A Biography ').
-libro('1542041643','Forgotten Bones (Dead Remaining Book 1)').
-libro('1542091330','What You Did').
-libro('1542092809', 'A Fire Sparkling').
-libro('1542093082', 'Last Summer: A Novel').
-libro('1632150786','Saga Book One').
-libro('1984827618','Where the Crawdads Sing').
-libro('B003JFJHTS','The Handmaids Tale').
-libro('B06Y55SB4X','Tom Clancy Power and Empire').
-libro('B076CJX3YN','Matchmaking for Beginners: A Novel').
-libro('B07G8NTJVP','Thin Air (Jessica Shaw Book 1)').
+libro(1,'Harry Potter and the Sorcerers Stone').
+libro(2,'Becoming').
+libro(3,'The Whole 30: The Official 30-Day Guide to Total Health and Food Freedom').
+libro(4,'Dont Even Breathe').
+libro(5,'The Boy Between Worlds: A Biography ').
+libro(6,'Forgotten Bones (Dead Remaining Book 1)').
+libro(7,'What You Did').
+libro(8, 'A Fire Sparkling').
+libro(9, 'Last Summer: A Novel').
+libro(10,'Saga Book One').
+libro(11,'Where the Crawdads Sing').
+libro(12,'The Handmaids Tale').
+libro(13,'Tom Clancy Power and Empire').
+libro(14,'Matchmaking for Beginners: A Novel').
+libro(15,'Thin Air (Jessica Shaw Book 1)').
 
-material('0439708184','Hardcover').
-material('0525633758','Paperback').
-material('1473619556','Paperback').
-material('1503900916','Paperback').
-material('1542040094','Paperback').
-material('1542041643','Paperback').
-material('1542091330','Hardcover').
-material('1542092809', 'Hardcover').
-material('1542093082', 'Paperback').
-material('1632150786','Hardcover').
-material('1984827618','Paperback').
-material('B003JFJHTS','Hardcover').
-material('B06Y55SB4X',Paperback).
-material('B076CJX3YN','Hardcover').
-material('B07G8NTJVP','Paperback').
+material(1,'Hardcover').
+material(2,'Paperback').
+material(3,'Paperback').
+material(4,'Paperback').
+material(5,'Paperback').
+material(6,'Paperback').
+material(7,'Hardcover').
+material(8, 'Hardcover').
+material(9, 'Paperback').
+material(10,'Hardcover').
+material(11,'Paperback').
+material(12,'Hardcover').
+material(13,'Paperback').
+material(14,'Hardcover').
+material(15,'Paperback').
 
-nuevo('0439708184',699.92).
-nuevo('0525633758',1197.99).
-nuevo('1473619556',1147.5).
-nuevo('1503900916',406.98).
-nuevo('1542040094',611.49).
-nuevo('1542041643',509.49).
-nuevo('1542091330',1250).
-nuevo('1542092809', 509.49).
-nuevo('1542093082', 560.49).
-nuevo('1632150786',1586.10).
-nuevo('1984827618',856.8).
-nuevo('B003JFJHTS',522.75).
-nuevo('B06Y55SB4X',458.49).
-nuevo('B076CJX3YN',658.41).
-nuevo('B07G8NTJVP',606.9).
+nuevo(1,699.92).
+nuevo(2,1197.99).
+nuevo(3,1147.5).
+nuevo(4,406.98).
+nuevo(5,611.49).
+nuevo(6,509.49).
+nuevo(7,1250).
+nuevo(8, 509.49).
+nuevo(9, 560.49).
+nuevo(10,1586.10).
+nuevo(11,856.8).
+nuevo(12,522.75).
+nuevo(13,458.49).
+nuevo(14,658.41).
+nuevo(15,606.9).
 
-ranking('0439708184',4.7).
-ranking('0525633758',4.9).
-ranking('1473619556',4.6).
-ranking('1503900916',4.3).
-ranking('1542040094',4,7).
-ranking('1542041643',4.6).
-ranking('1542091330',4.8).
-ranking('1542092809', 4.7).
-ranking('1542093082', 4.7).
-ranking('1632150786',4.8).
-ranking('1984827618',4.8).
-ranking('B003JFJHTS',4.1).
-ranking('B06Y55SB4X',4.1).
-ranking('B076CJX3YN',4.6).
-ranking('B07G8NTJVP',4.3).
+ranking(1,4.7).
+ranking(2,4.9).
+ranking(3,4.6).
+ranking(4,4.3).
+ranking(5,4.7).
+ranking(6,4.6).
+ranking(7,4.8).
+ranking(8, 4.7).
+ranking(9, 4.7).
+ranking(10,4.8).
+ranking(11,4.8).
+ranking(12,4.1).
+ranking(13,4.1).
+ranking(14,4.6).
+ranking(15,4.3).
 
-usado('0439708184',100.0).
-usado('0525633758',983.79).
-usado('1473619556',678.81).
-usado('1503900916',498.27).
-usado('1542091330',510).
-usado('1542093082', 459).
-usado('1632150786',1219.41).
-usado('1984827618',805.29).
-usado('B003JFJHTS',374.34).
-usado('B06Y55SB4X',50.0).
-usado('B076CJX3YN',313.14).
-usado('B07G8NTJVP',346.29).
+usado(1,100.0).
+usado(2,983.79).
+usado(3,678.81).
+usado(4,498.27).
+usado(7,510).
+usado(9, 459).
+usado(10,1219.41).
+usado(11,805.29).
+usado(12,374.34).
+usado(13,50.0).
+usado(14,313.14).
+usado(15,346.29).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% R E G L A S     D E      A Y U D A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,14 +172,21 @@ obtener_combinaciones(Presupuesto,Lista,Combinaciones):-
     suma(Combinaciones,Respuesta),
     Respuesta=<Presupuesto.
 
-informacion_libro(Id, Precio, Nombre, Autor, Categoria, Imagen, Dia, Mes, Anho,Flag) :-
+informacion_libro(Id, Precio, Nombre, Autor, Categoria, Dia, Mes, Anho,Flag) :-
     libro(Id, Nombre),
     autor(Id, Autor),
     categoria(Id, Categoria),
-    imagen(Id, Imagen),
     fecha(Id, Dia, Mes, Anho),
     nuevo(Id,Precio),
     Flag is 1.
+
+informacion_libro(Id, Precio, Nombre, Autor, Categoria, Dia, Mes, Anho,Flag) :-
+    libro(Id, Nombre),
+    autor(Id, Autor),
+    categoria(Id, Categoria),
+    fecha(Id, Dia, Mes, Anho),
+    usado(Id,Precio),
+    Flag is 0.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% P R I M E R A   R E G L A %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
