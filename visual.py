@@ -40,7 +40,6 @@ def create_window():
     sueldo = Entry(labelFrame)
     sueldo.grid(column=0, row=1)
     btn_sueldo = Button(labelFrame, text="Cambiar", command= lambda: changeSalary(sueldo))
-    #command=lambda: clicked1st("Lista",adicional, date.day, date.month, date.year, labelFrame)
     btn_sueldo.grid(column=0, row=2)
 
     #PRIMER TAB
@@ -53,11 +52,6 @@ def create_window():
     tabControl.add(tab2, text="Categoria estrellas")
     tabContent2(tab2)
 
-    #TERCER TAB
-    # tab3 = ttk.Frame(tabControl)
-    # tabControl.add(tab3, text="Usado varias categorias")
-    # tabContent3(tab3)
-
     #CUARTO TAB
     tab4 = ttk.Frame(tabControl)
     tabControl.add(tab4, text="Autor no palabra")
@@ -68,32 +62,22 @@ def create_window():
     tabControl.add(tab5, text="Estellas este mes")
     tabContent5(tab5)
 
-
+    #SEXTO TAB
     tab6 = ttk.Frame(tabControl)
     tabControl.add(tab6, text="Extra 1")
     tabContent6(tab6)
 
+    #SEPTIMO TAB
     tab7 = ttk.Frame(tabControl)
     tabControl.add(tab7, text="Extra 2")
     tabContent7(tab7)
 
+    #OCTAVO TAB
     tab8 = ttk.Frame(tabControl)
     tabControl.add(tab8, text="Extra 3")
     tabContent8(tab8)
 
-
     tabControl.grid(column=0, row=3)
-
-    # #Cbx
-    # combo = Combobox(window, state="readonly")
-    # combo['values'] = ("Select", "libros_menosde_siete_dias(Adicional,Dia,Mes,Anho,IdLibro)"
-    #                    ,"categoria_estrellas(Adicional, Porcentaje, Categoria, Estrellas, IdLibro)"
-    #                    ,"usados_varias_categorias(Adicional,IdLibro)"
-    #                    ,"categoria_autor_nopalabra(Porcentaje, Categoria, Autor, Palabra, IdLibro)"
-    #                    ,"categoria_estrellas_estemes(Categoria, Estrellas, Mes, Anho, IdLibro)")
-    # combo.current(0)
-    # combo.grid(column=1,row=2)
-    # combo.bind('<<ComboboxSelected>>', lambda event: on_value_change(combo, window))
 
     window.mainloop()
 
@@ -105,26 +89,6 @@ def tabContent1(tab1):
     label_adicional.grid(column=0, row=3, pady=10)
     adicional = Entry(labelFrame)
     adicional.grid(column=1, row=3)
-
-    # label_dia = Label(labelFrame, text="Dia", anchor='e', width=30)
-    # label_dia.grid(column=0, row=5, pady=10)
-    # dia = Entry(labelFrame)
-    # dia.grid(column=1, row=5)
-    #
-    # label_mes = Label(labelFrame, text="Mes", anchor='e', width=30)
-    # label_mes.grid(column=0, row=7, pady=10)
-    # mes = Entry(labelFrame)
-    # mes.grid(column=1, row=7)
-    #
-    # label_anho = Label(labelFrame, text="Año", anchor='e', width=30)
-    # label_anho.grid(column=0, row=9, pady=10)
-    # anho = Entry(labelFrame)
-    # anho.grid(column=1, row=9)
-    #
-    # label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
-    # label_id_libro.grid(column=0, row=11, pady=10)
-    # id_libro = Entry(labelFrame)
-    # id_libro.grid(column=1, row=11)
 
     btn = Button(labelFrame, text="Buscar", command=lambda: clicked1st("Lista",adicional, date.day, date.month, date.year, labelFrame))
     btn.grid(column=1, row=13)
@@ -154,28 +118,9 @@ def tabContent2(tab2):
     estrellas = Entry(labelFrame)
     estrellas.grid(column=1, row=9)
 
-    # label_id_libro = Label(labelFrame, text="Id_libro", anchor='e', width=30)
-    # label_id_libro.grid(column=0, row=11, pady=10)
-    # id_libro = Entry(labelFrame)
-    # id_libro.grid(column=1, row=11)
-
     btn = Button(labelFrame, text="Buscar",
                  command=lambda: clicked2nd("Lista",adicional, porciento_sueldo, categoria, estrellas, labelFrame))
     btn.grid(column=1, row=13)
-
-# def tabContent3(tab3):
-#     labelFrame = ttk.LabelFrame(tab3, text="Libros usados de diferentes categorias")
-#     labelFrame.grid(column=0, row=5)
-#
-#     label_adicional = Label(labelFrame, text="Sueldo Adicional", anchor='e', width=30)
-#     label_adicional.grid(column=0, row=3, pady=10)
-#     adicional = Entry(labelFrame)
-#     adicional.grid(column=1, row=3)
-#
-#     label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
-#     label_id_libro.grid(column=0, row=5, pady=10)
-#     id_libro = Entry(labelFrame)
-#     id_libro.grid(column=1, row=5)
 
 def tabContent4(tab4):
     labelFrame = ttk.LabelFrame(tab4, text="Libros de economia sin palabra crisis")
@@ -202,11 +147,6 @@ def tabContent4(tab4):
     palabra = Entry(labelFrame)
     palabra.grid(column=1, row=9)
 
-    # label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
-    # label_id_libro.grid(column=0, row=11, pady=10)
-    # id_libro = Entry(labelFrame)
-    # id_libro.grid(column=1, row=11)
-
     btn = Button(labelFrame, text="Buscar",
                  command=lambda: clicked4th("Lista",porciento_sueldo, categoria, autor, palabra, labelFrame))
     btn.grid(column=1, row=13)
@@ -225,21 +165,6 @@ def tabContent5(tab5):
     estrellas = Entry(labelFrame)
     estrellas.grid(column=1, row=5)
 
-    # label_mes = Label(labelFrame, text="Mes", anchor='e', width=30)
-    # label_mes.grid(column=0, row=7, pady=10)
-    # mes = Entry(labelFrame)
-    # mes.grid(column=1, row=7)
-    #
-    # label_anho = Label(labelFrame, text="Año", anchor='e', width=30)
-    # label_anho.grid(column=0, row=9, pady=10)
-    # anho = Entry(labelFrame)
-    # anho.grid(column=1, row=9)
-    #
-    # label_id_libro = Label(labelFrame, text="Id Libro", anchor='e', width=30)
-    # label_id_libro.grid(column=0, row=11, pady=10)
-    # id_libro = Entry(labelFrame)
-    # id_libro.grid(column=1, row=11)
-
     btn = Button(labelFrame, text="Buscar",
                  command=lambda: clicked5th("Lista", categoria, estrellas, date.month, date.year, labelFrame))
     btn.grid(column=1, row=13)
@@ -248,7 +173,6 @@ def tabContent5(tab5):
 
 
 def tabContent6(tab6):
-    #libros_periodo_tiempo(Autor,Estrellas,AnhoInicial,AnhoFinal,IdLibro)
     labelFrame = ttk.LabelFrame(tab6, text="Libros por periodo de tiempo")
     labelFrame.grid(column=0, row=5)
 
@@ -278,7 +202,6 @@ def tabContent6(tab6):
 
 
 def tabContent7(tab7):
-    #libros_casa_editora(Lista,CasaEditora,Estrellas,Porcentaje)
     labelFrame = ttk.LabelFrame(tab7, text="Libros por casa editora")
     labelFrame.grid(column=0, row=5)
 
@@ -302,7 +225,6 @@ def tabContent7(tab7):
     btn.grid(column=1, row=13)
 
 def tabContent8(tab8):
-    ##material_autor_categoria(Autor,Categoria,Material,IdLibro)
     labelFrame = ttk.LabelFrame(tab8, text="Libros por material")
     labelFrame.grid(column=0, row=5)
 
@@ -364,11 +286,6 @@ def get_book_info(id, price, txt):
     txt.insert(INSERT, "\nCategoria: "+ category)
     txt.insert(INSERT, "\nFecha: "+ str(day) + "-" + str(month) + "-" + str(year))
     txt.insert(INSERT, "\n")
-
-    # print(name)
-
-
-
 
 def clicked1st(lista, adicional, dia, mes, anho, window):
         fact = "libros_menosde_siete_dias("\
@@ -534,7 +451,6 @@ def clicked6th(lista, autor, estrellas, anhoI, anhoF, labelFrame):
 
 
 def clicked7th(lista,casaEditora,estrellas,porciento_salario, labelFrame):
-    # libros_casa_editora(Lista, CasaEditora, Estrellas, Porcentaje)
     fact = "libros_casa_editora(" \
             + lista + "," + \
             "'"+casaEditora.get()+"'" + \
